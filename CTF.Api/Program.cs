@@ -4,11 +4,7 @@ using Microsoft.OpenApi.Models;
 using RST.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
-var assemblies = new[]
-{
-    "MealPlanSystem",
-    "MealPlanSystem.Api"
-}.LoadAssemblies()
+var assemblies = InstanceAssemblies.Names.LoadAssemblies()
 .ToArray();
 
 var services = builder.Services;
@@ -16,7 +12,7 @@ var services = builder.Services;
 services
     .AddAutoMapper(assemblies)
     .AddSingleton<ApplicationSettings>()
-    .AddServices<ApplicationSettings>(a => a.ConnectionString)
+    .AddServices<ApplicationSettings>(a => a.ConnectionString, InstanceAssemblies.API_ASSEMBLY)
     .AddMediatR(configure => configure
         .RegisterServicesFromAssemblies(assemblies))
     .AddControllers();
@@ -25,7 +21,7 @@ services
         c.CustomSchemaIds(c => c.FullName);
         c.SwaggerDoc("v1", new OpenApiInfo
         {
-            Title = "Meal Plan System API",
+            Title = "Contractual Transaction Framework API",
             Version = "v1"
         });
     });

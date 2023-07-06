@@ -10,7 +10,7 @@ namespace CTF.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddServices<TApplicationServices>(this IServiceCollection services, Func<TApplicationServices, string?> getConnectionString)
+        public static IServiceCollection AddServices<TApplicationServices>(this IServiceCollection services, Func<TApplicationServices, string?> getConnectionString, string migrationAssemblyName)
             where TApplicationServices : class
         {
             return services
@@ -28,7 +28,7 @@ namespace CTF.Extensions
                     var connectionString = getConnectionString(applicationServices);
                     if (!string.IsNullOrEmpty(connectionString))
                     {
-                        opt.UseSqlServer(connectionString, opt => opt.MigrationsAssembly("MealPlanSystem.Api"));
+                        opt.UseSqlServer(connectionString, opt => opt.MigrationsAssembly(migrationAssemblyName));
                     }
                 });
         }
