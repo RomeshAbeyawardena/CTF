@@ -4,6 +4,7 @@ namespace CTF.Api.Features.Transaction;
 
 public class Transaction : ITransaction
 {
+    public Guid? Id { get; set; }
     public Guid TransactionTypeId { get; set; }
     public Guid TransactionDefinitionId { get; set; }
     public Guid? ParentTransactionId { get; set; }

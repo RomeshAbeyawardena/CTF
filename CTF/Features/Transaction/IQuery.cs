@@ -1,6 +1,8 @@
-﻿namespace CTF.Features.Transaction;
+﻿using RST.Contracts;
 
-public interface IQuery
+namespace CTF.Features.Transaction;
+
+public interface IQuery : IDateRangeQuery
 {
     /// <summary>
     /// Gets or sets the Session ID
@@ -9,6 +11,5 @@ public interface IQuery
     public Guid? TransactionTypeId { get; set; }
     public Guid? TransactionDefinitionId { get; set; }
     public Guid? ParentTransactionId { get; set; }
-    public Guid? GeneratedBySessionId { get; set; }
-    public Guid? ProcessedBySessionId { get; set; }
+    public Guid? SessionId { get; set; }
 }

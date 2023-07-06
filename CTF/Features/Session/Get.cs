@@ -9,4 +9,7 @@ public record Get : IRequest<IQueryable<Session>>, IQuery
     public string? Token { get; set; }
     public string? Subject { get; set; }
     public Guid? Id { get; set; }
+    public DateTimeOffset? StartDate { get; set; }
+    public DateTimeOffset? EndDate { get; set; }
+    public bool? NoTracking { get; set; }
 }

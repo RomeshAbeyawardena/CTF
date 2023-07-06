@@ -33,6 +33,12 @@ public class GetHandler : RepositoryHandlerBase<Get, IQueryable<Transaction>, Tr
             query.And(s => s.ParentTransactionId == request.ParentTransactionId);
         }
 
+        if (request.SessionId.HasValue)
+        {
+            query.And(s => s.GeneratedBySessionId == request.SessionId 
+                || (!s.ProcessedBySessionId.HasValue || s.ProcessedBySessionId == request.SessionId));
+        }
+
         return Repository!.Where(query);
     }
 }

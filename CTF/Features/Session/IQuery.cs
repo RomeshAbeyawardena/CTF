@@ -1,6 +1,8 @@
-﻿namespace CTF.Features.Session;
+﻿using RST.Contracts;
 
-public interface IQuery
+namespace CTF.Features.Session;
+
+public interface IQuery : IDateRangeQuery
 {
     /// <summary>
     /// Gets or sets the Session ID

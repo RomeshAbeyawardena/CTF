@@ -8,6 +8,8 @@ public record Get : IRequest<IQueryable<Transaction>>, IQuery
     public Guid? TransactionTypeId { get; set; }
     public Guid? TransactionDefinitionId { get; set; }
     public Guid? ParentTransactionId { get; set; }
-    public Guid? GeneratedBySessionId { get; set; }
-    public Guid? ProcessedBySessionId { get; set; }
+    public Guid? SessionId { get; set; }
+    public DateTimeOffset? StartDate { get; set; }
+    public DateTimeOffset? EndDate { get; set; }
+    public bool? NoTracking { get; set; }
 }
