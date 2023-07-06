@@ -3,7 +3,7 @@ using RST.Enumerations;
 
 namespace CTF.Features.TransactionDefinition;
 
-public record GetPaged : IPagedRequest<TransactionDefinition>, IQuery
+public record GetPaged : IPagedRequest<Models.TransactionDefinition>, IQuery
 {
     public bool? NoTracking { get; set; }
     public Guid? Id { get; set; }

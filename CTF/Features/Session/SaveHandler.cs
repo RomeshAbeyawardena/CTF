@@ -4,15 +4,15 @@ using RST.Mediatr.Extensions;
 
 namespace CTF.Features.Session;
 
-public class SaveHandler : RepositoryHandlerBase<SaveCommand, Session, Session>
+public class SaveHandler : RepositoryHandlerBase<SaveCommand, Models.Session, Models.Session>
 {
     [Inject] protected IMapper? Mapper { get; set; }
     public SaveHandler(IServiceProvider serviceProvider) : base(serviceProvider)
     {
     }
 
-    public override Task<Session> Handle(SaveCommand request, CancellationToken cancellationToken)
+    public override Task<Models.Session> Handle(SaveCommand request, CancellationToken cancellationToken)
     {
-        return ProcessSave(request, Mapper!.Map<Session>, cancellationToken);
+        return ProcessSave(request, Mapper!.Map<Models.Session>, cancellationToken);
     }
 }

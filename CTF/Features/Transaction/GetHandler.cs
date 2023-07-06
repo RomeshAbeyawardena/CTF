@@ -2,13 +2,13 @@
 
 namespace CTF.Features.Transaction;
 
-public class GetHandler : RepositoryHandlerBase<Get, IQueryable<Transaction>, Transaction>
+public class GetHandler : RepositoryHandlerBase<Get, IQueryable<Models.Transaction>, Models.Transaction>
 {
     public GetHandler(IServiceProvider serviceProvider) : base(serviceProvider)
     {
     }
 
-    public override async Task<IQueryable<Transaction>> Handle(Get request, CancellationToken cancellationToken)
+    public override async Task<IQueryable<Models.Transaction>> Handle(Get request, CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
         var query = Repository!.QueryBuilder;

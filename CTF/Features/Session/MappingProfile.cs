@@ -7,6 +7,6 @@ public class MappingProfile : Profile
     public MappingProfile()
     {
         CreateMap<GetPaged, Get>();
-        CreateMap<SaveCommand, Session>();
+        CreateMap<SaveCommand, Models.Session>();
     }
 }

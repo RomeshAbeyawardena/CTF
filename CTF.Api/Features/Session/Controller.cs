@@ -39,6 +39,6 @@ public class Controller : RST.DependencyInjection.Extensions.EnableInjectionBase
         [FromRoute]Guid? id)
     {
         command.Id = id;
-        return SaveSessions(command, cancellationToken);
+        return SaveSession(command, cancellationToken);
     }
 }

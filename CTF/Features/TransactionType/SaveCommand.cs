@@ -4,7 +4,7 @@ using RST.Contracts;
 
 namespace CTF.Features.TransactionType;
 
-public class SaveCommand : IRequest<TransactionType>, ITransactionType, IDbCommand
+public class SaveCommand : IRequest<Models.TransactionType>, ITransactionType, IDbCommand
 {
     public Guid? Id { get; set; }
     public bool CommitChanges { get; set; }

@@ -6,7 +6,7 @@ using RST.Mediatr.Extensions;
 
 namespace CTF.Features.TransactionDefinition;
 
-public class GetPagedHandler : PagedRepositoryHandlerBase<GetPaged, TransactionDefinition>
+public class GetPagedHandler : PagedRepositoryHandlerBase<GetPaged, Models.TransactionDefinition>
 {
     [Inject] protected IMapper? Mapper { get; set; }
     [Inject] protected IMediator? Mediator { get; set; }
@@ -15,7 +15,7 @@ public class GetPagedHandler : PagedRepositoryHandlerBase<GetPaged, TransactionD
     {
     }
 
-    public override async Task<IPagedResult<TransactionDefinition>> Handle(GetPaged request, CancellationToken cancellationToken)
+    public override async Task<IPagedResult<Models.TransactionDefinition>> Handle(GetPaged request, CancellationToken cancellationToken)
     {
         var query = await Mediator!.Send(Mapper!.Map<Get>(request), cancellationToken);
 

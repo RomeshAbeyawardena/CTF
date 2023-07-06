@@ -1,8 +1,11 @@
 ﻿using CTF.Models;
 using RST.Contracts;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CTF.Features.Session;
+namespace CTF.Features.Models;
 
+[Table(nameof(Session))]
 public record Session : ISession, IIdentity
 {
     public Guid? OwnerTransactionId { get; set; }
@@ -11,5 +14,5 @@ public record Session : ISession, IIdentity
     public string? Subject { get; set; }
     public DateTimeOffset? ValidFrom { get; set; }
     public DateTimeOffset? ValidTo { get; set; }
-    public Guid Id { get; set; }
+    [Key]public Guid Id { get; set; }
 }

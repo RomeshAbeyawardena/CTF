@@ -1,7 +1,7 @@
 ﻿using CTF.Models;
 using RST.Contracts;
 
-namespace CTF.Features.TransactionDefinition;
+namespace CTF.Features.Models;
 
 public record TransactionDefinition : ITransactionDefinition, IIdentity
 {

@@ -2,7 +2,7 @@
 
 namespace CTF.Features.Transaction;
 
-public record Get : IRequest<IQueryable<Transaction>>, IQuery
+public record Get : IRequest<IQueryable<Models.Transaction>>, IQuery
 {
     public Guid? Id { get; set; }
     public Guid? TransactionTypeId { get; set; }

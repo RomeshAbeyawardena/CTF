@@ -4,7 +4,7 @@ using RST.Contracts;
 
 namespace CTF.Features.Session;
 
-public class SaveCommand : IRequest<Session>, ITransaction, IDbCommand
+public class SaveCommand : IRequest<Models.Session>, ITransaction, IDbCommand
 {
     public Guid? Id { get; set; }
     

@@ -3,7 +3,7 @@ using RST.Enumerations;
 
 namespace CTF.Features.Session;
 
-public record GetPaged : IPagedRequest<Session>, IQuery
+public record GetPaged : IPagedRequest<Models.Session>, IQuery
 {
     public Guid? OwnerTransactionId { get; set; }
     public string? Key { get; set; }

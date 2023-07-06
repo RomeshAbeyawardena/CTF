@@ -2,7 +2,7 @@
 
 namespace CTF.Features.Session;
 
-public record Get : IRequest<IQueryable<Session>>, IQuery
+public record Get : IRequest<IQueryable<Models.Session>>, IQuery
 {
     public Guid? OwnerTransactionId { get; set; }
     public string? Key { get; set; }

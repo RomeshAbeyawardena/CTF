@@ -1,10 +1,14 @@
 ﻿using CTF.Models;
 using RST.Contracts;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CTF.Features.Transaction;
+namespace CTF.Features.Models;
 
+[Table(nameof(Session))]
 public record Transaction : ITransaction, IIdentity
 {
+    [Key]
     public Guid Id { get; set; }
     public Guid TransactionTypeId { get; set; }
     public Guid TransactionDefinitionId { get; set; }

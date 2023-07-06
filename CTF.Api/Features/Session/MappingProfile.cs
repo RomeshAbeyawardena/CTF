@@ -7,8 +7,8 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        this.CreatePagedMapping<CTF.Features.Session.Session, Session>();
-        CreateMap<Session, CTF.Features.Session.Session>()
+        this.CreatePagedMapping<CTF.Features.Models.Session, Session>();
+        CreateMap<Session, CTF.Features.Models.Session>()
             .ReverseMap();
     }
 }
