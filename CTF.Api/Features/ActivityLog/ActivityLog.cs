@@ -8,4 +8,5 @@ public record ActivityLog : Models.IActivityLog
     public Guid? TransactionDefinitionId { get; set; }
     public Guid? TransactionTypeId { get; set; }
     public DateTimeOffset Created { get; set; }
+    public Guid ActivityTypeId { get; set; }
 }

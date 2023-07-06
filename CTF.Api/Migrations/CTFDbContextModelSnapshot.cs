@@ -28,6 +28,9 @@ namespace CTF.Api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("ActivityTypeId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTimeOffset>("Created")
                         .HasColumnType("datetimeoffset");
 
@@ -45,6 +48,8 @@ namespace CTF.Api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ActivityTypeId");
+
                     b.HasIndex("SessionId");
 
                     b.HasIndex("TransactionDefinitionId");
@@ -54,6 +59,27 @@ namespace CTF.Api.Migrations
                     b.HasIndex("TransactionTypeId");
 
                     b.ToTable("ActivityLog");
+                });
+
+            modelBuilder.Entity("CTF.Features.Models.ActivityType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("DisplayName")
+                        .HasColumnType("NVARCHAR(2000)");
+
+                    b.Property<bool>("Enabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR(200)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ActivityType");
                 });
 
             modelBuilder.Entity("CTF.Features.Models.Session", b =>
@@ -196,6 +222,12 @@ namespace CTF.Api.Migrations
 
             modelBuilder.Entity("CTF.Features.Models.ActivityLog", b =>
                 {
+                    b.HasOne("CTF.Features.Models.ActivityType", "ActivityType")
+                        .WithMany()
+                        .HasForeignKey("ActivityTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("CTF.Features.Models.Session", "Session")
                         .WithMany()
                         .HasForeignKey("SessionId")
@@ -213,6 +245,8 @@ namespace CTF.Api.Migrations
                     b.HasOne("CTF.Features.Models.TransactionType", "TransactionType")
                         .WithMany()
                         .HasForeignKey("TransactionTypeId");
+
+                    b.Navigation("ActivityType");
 
                     b.Navigation("Session");
 

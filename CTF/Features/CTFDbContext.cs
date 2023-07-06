@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using LinqKit;
+using Microsoft.EntityFrameworkCore;
+using RST.Extensions;
 
 namespace CTF.Features;
 
@@ -8,5 +10,10 @@ public partial class CTFDbContext : DbContext
         : base(options)
     {
         
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        Init_Sessions(modelBuilder);
     }
 }
