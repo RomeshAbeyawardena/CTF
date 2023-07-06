@@ -4,18 +4,15 @@ using RST.Contracts;
 
 namespace CTF.Features.Session;
 
-public class SaveCommand : IRequest<Models.Session>, ITransaction, IDbCommand
+public class SaveCommand : IRequest<Models.Session>, ISession, IDbCommand
 {
     public Guid? Id { get; set; }
     
     public bool CommitChanges { get; set; }
-    public Guid TransactionTypeId { get; set; }
-    public Guid TransactionDefinitionId { get; set; }
-    public Guid? ParentTransactionId { get; set; }
-    public Guid GeneratedBySessionId { get; set; }
-    public Guid? ProcessedBySessionId { get; set; }
-    public string? Payload { get; set; }
-    public string? Hash { get; set; }
+    public Guid? OwnerTransactionId { get; set; }
+    public string? Key { get; set; }
+    public string? Token { get; set; }
+    public string? Subject { get; set; }
     public DateTimeOffset? ValidFrom { get; set; }
-    public DateTimeOffset? ProcessedTimestamp { get; set; }
+    public DateTimeOffset? ValidTo { get; set; }
 }
