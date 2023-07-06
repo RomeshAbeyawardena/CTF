@@ -30,18 +30,18 @@ public class Controller : EnableInjectionBase<InjectAttribute>
     }
 
     [HttpPost]
-    public async Task<Transaction> SaveTransactions(
+    public async Task<Transaction> SaveTransaction(
         [FromForm] SaveCommand command, CancellationToken cancellationToken)
     {
         return Mapper!.Map<Transaction>(await Mediator!.Send(command, cancellationToken));
     }
 
     [HttpPut, Route("{id?}")]
-    public Task<Transaction> SaveTransactions(
+    public Task<Transaction> SaveTransaction(
         [FromForm] SaveCommand command, CancellationToken cancellationToken,
         [FromRoute] Guid? id)
     {
         command.Id = id;
-        return SaveTransactions(command, cancellationToken);
+        return SaveTransaction(command, cancellationToken);
     }
 }

@@ -27,14 +27,14 @@ public class Controller : RST.DependencyInjection.Extensions.EnableInjectionBase
             await Mediator!.Send(query, cancellationToken));
     }
 
-    [HttpPost] public async Task<Session> SaveSessions(
+    [HttpPost] public async Task<Session> SaveSession(
         [FromForm]SaveCommand command, CancellationToken cancellationToken)
     {
         return Mapper!.Map<Session>(await Mediator!.Send(command, cancellationToken));
     }
 
     [HttpPut, Route("{id?}")]
-    public Task<Session> SaveSessions(
+    public Task<Session> SaveSession(
         [FromForm] SaveCommand command, CancellationToken cancellationToken,
         [FromRoute]Guid? id)
     {

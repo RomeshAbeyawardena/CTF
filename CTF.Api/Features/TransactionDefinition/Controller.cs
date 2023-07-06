@@ -6,7 +6,7 @@ using RST.Contracts;
 using RST.DependencyInjection.Extensions;
 using RST.DependencyInjection.Extensions.Attributes;
 
-namespace CTF.Api.Features.TransactionType;
+namespace CTF.Api.Features.TransactionDefinition;
 
 [ApiController]
 public class Controller : EnableInjectionBase<InjectAttribute>
@@ -20,28 +20,28 @@ public class Controller : EnableInjectionBase<InjectAttribute>
     }
 
     [HttpGet, Route("{id?}")]
-    public async Task<IPagedResult<TransactionType>> GetTransactionTypes(
+    public async Task<IPagedResult<TransactionDefinition>> GetTransactionDefinitions(
         [FromQuery] GetPaged query, CancellationToken cancellationToken,
         [FromRoute] Guid? id)
     {
         query.Id = id;
-        return Mapper!.Map<IPagedResult<TransactionType>>(
+        return Mapper!.Map<IPagedResult<TransactionDefinition>>(
             await Mediator!.Send(query, cancellationToken));
     }
 
     [HttpPost]
-    public async Task<TransactionType> SaveTransactionType(
+    public async Task<TransactionDefinition> SaveTransactionDefinition(
         [FromForm] SaveCommand command, CancellationToken cancellationToken)
     {
-        return Mapper!.Map<TransactionType>(await Mediator!.Send(command, cancellationToken));
+        return Mapper!.Map<TransactionDefinition>(await Mediator!.Send(command, cancellationToken));
     }
 
     [HttpPut, Route("{id?}")]
-    public Task<TransactionType> SaveTransactionType(
+    public Task<TransactionDefinition> SaveTransactionDefinition(
         [FromForm] SaveCommand command, CancellationToken cancellationToken,
         [FromRoute] Guid? id)
     {
         command.Id = id;
-        return SaveTransactionType(command, cancellationToken);
+        return SaveTransactionDefinition(command, cancellationToken);
     }
 }
