@@ -180,6 +180,11 @@ namespace CTF.Api.Migrations
                 column: "TransactionTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ActivityType_Name",
+                table: "ActivityType",
+                column: "Name");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Session_OwnerTransactionId",
                 table: "Session",
                 column: "OwnerTransactionId");
@@ -208,6 +213,11 @@ namespace CTF.Api.Migrations
                 name: "IX_Transaction_TransactionTypeId",
                 table: "Transaction",
                 column: "TransactionTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TransactionType_Name",
+                table: "TransactionType",
+                column: "Name");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_ActivityLog_Session_SessionId",

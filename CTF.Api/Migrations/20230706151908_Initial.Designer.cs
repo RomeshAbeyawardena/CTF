@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CTF.Api.Migrations
 {
     [DbContext(typeof(CTFDbContext))]
-    [Migration("20230706151316_Initial")]
+    [Migration("20230706151908_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -81,6 +81,8 @@ namespace CTF.Api.Migrations
                         .HasColumnType("NVARCHAR(200)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name");
 
                     b.ToTable("ActivityType");
                 });
@@ -219,6 +221,8 @@ namespace CTF.Api.Migrations
                         .HasColumnType("NVARCHAR(80)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name");
 
                     b.ToTable("TransactionType");
                 });

@@ -79,6 +79,8 @@ namespace CTF.Api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name");
+
                     b.ToTable("ActivityType");
                 });
 
@@ -216,6 +218,8 @@ namespace CTF.Api.Migrations
                         .HasColumnType("NVARCHAR(80)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name");
 
                     b.ToTable("TransactionType");
                 });
