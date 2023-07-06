@@ -17,6 +17,10 @@ public class SaveHandler : RepositoryHandlerBase<SaveCommand, Models.Session, Mo
 
     public async override Task<Models.Session> Handle(SaveCommand request, CancellationToken cancellationToken)
     {
+        var activityType = request.Id.HasValue
+                    ? Enumerations.ActivityType.Insert
+                    : Enumerations.ActivityType.Update;
+
         var logActivity = applicationSettings?.LogActivity ?? false; ;
         request.CommitChanges = !logActivity;
         var savedSession = await ProcessSave(request, Mapper!.Map<Models.Session>, cancellationToken);
@@ -25,6 +29,7 @@ public class SaveHandler : RepositoryHandlerBase<SaveCommand, Models.Session, Mo
         {
             await Mediator!.Send(new ActivityLogFeature.SaveCommand
             {
+                ActivityType = activityType,
                 SessionId = savedSession.Id,
                 CommitChanges = true
             }, cancellationToken);

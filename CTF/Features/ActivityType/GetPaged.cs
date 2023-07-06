@@ -13,4 +13,5 @@ public record GetPaged : IPagedRequest<Models.ActivityType>, IQuery
     public IEnumerable<string>? OrderByFields { get; set; }
     public SortOrder? SortOrder { get; set; }
     public string? NameSearch { get; set; }
+    public Enumerations.ActivityType? ActivityType { get; set; }
 }

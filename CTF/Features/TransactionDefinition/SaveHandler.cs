@@ -17,6 +17,10 @@ public class SaveHandler : RepositoryHandlerBase<SaveCommand, Models.Transaction
 
     public override async Task<Models.TransactionDefinition> Handle(SaveCommand request, CancellationToken cancellationToken)
     {
+        var activityType = request.Id.HasValue
+                    ? Enumerations.ActivityType.Insert
+                    : Enumerations.ActivityType.Update;
+
         var logActivity = ApplicationSettings?.LogActivity ?? false; ;
         request.CommitChanges = !logActivity;
         var savedTransactionDefinition = await ProcessSave(request, Mapper!.Map<Models.TransactionDefinition>, cancellationToken);
@@ -24,6 +28,7 @@ public class SaveHandler : RepositoryHandlerBase<SaveCommand, Models.Transaction
         {
             await Mediator!.Send(new ActivityLogFeature.SaveCommand
             {
+                ActivityType = activityType,
                 SessionId = request.SessionId,
                 TransactionDefinitionId = savedTransactionDefinition.Id,
                 CommitChanges = true

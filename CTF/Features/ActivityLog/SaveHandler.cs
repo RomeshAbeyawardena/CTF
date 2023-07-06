@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MediatR;
 using RST.DependencyInjection.Extensions.Attributes;
 using RST.Mediatr.Extensions;
 
@@ -6,13 +7,26 @@ namespace CTF.Features.ActivityLog;
 
 public class SaveHandler : RepositoryHandlerBase<SaveCommand, Models.ActivityLog, Models.ActivityLog>
 {
+    [Inject] protected IMediator? Mediator { get; set; }
     [Inject] protected IMapper? Mapper { get; set; }
     public SaveHandler(IServiceProvider serviceProvider) : base(serviceProvider)
     {
     }
 
-    public override Task<Models.ActivityLog> Handle(SaveCommand request, CancellationToken cancellationToken)
+    public override async Task<Models.ActivityLog> Handle(SaveCommand request, CancellationToken cancellationToken)
     {
-        return ProcessSave(request, Mapper!.Map<Models.ActivityLog>, cancellationToken);
+        if (request.ActivityType.HasValue)
+        {
+            var activityTypes = await Mediator!.Send(new Features.ActivityType.Get { 
+                ActivityType = request.ActivityType.Value
+            }, cancellationToken);
+
+            if (activityTypes.Any())
+            {
+                request.ActivityTypeId = activityTypes.FirstOrDefault()?.Id ?? throw new NullReferenceException("Activity Type not found");
+            }
+        }
+
+        return await ProcessSave(request, Mapper!.Map<Models.ActivityLog>, cancellationToken);
     }
 }

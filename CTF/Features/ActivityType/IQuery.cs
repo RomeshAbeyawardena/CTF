@@ -6,5 +6,6 @@ public interface IQuery
     /// Gets or sets the Session ID
     /// </summary>
     Guid? Id { get; set; }
-    public string? NameSearch { get; set; }
+    string? NameSearch { get; set; }
+    Enumerations.ActivityType? ActivityType { get; set; }
 }
