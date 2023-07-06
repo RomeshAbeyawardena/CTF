@@ -12,4 +12,6 @@ public record Get : IRequest<IQueryable<Models.ActivityLog>>, IQuery
     public DateTimeOffset? StartDate { get; set; }
     public DateTimeOffset? EndDate { get; set; }
     public bool? NoTracking { get; set; }
+    public Enumerations.ActivityType? ActivityType { get; set; }
+    public Guid? ActivityTypeId { get; set; }
 }

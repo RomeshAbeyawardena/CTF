@@ -17,4 +17,6 @@ public record GetPaged : IPagedRequest<Models.ActivityLog>, IQuery
     public int? TotalItemsPerPage { get; set; }
     public IEnumerable<string>? OrderByFields { get; set; }
     public SortOrder? SortOrder { get; set; }
+    public Enumerations.ActivityType? ActivityType { get; set; }
+    public Guid? ActivityTypeId { get; set; }
 }

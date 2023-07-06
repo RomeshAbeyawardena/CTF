@@ -38,6 +38,20 @@ public class GetHandler : RepositoryHandlerBase<Get, IQueryable<Models.ActivityL
             query.And(s => s.TransactionTypeId == request.TransactionTypeId);
         }
 
+        if (request.ActivityType.HasValue)
+        {
+            var enumValue = Enum.GetName(typeof(Enumerations.ActivityType), request.ActivityType);
+            if(!string.IsNullOrWhiteSpace(enumValue))
+            {
+                query.And(s => s.ActivityType!.Name == enumValue);
+            }
+        }
+
+        if (request.ActivityTypeId.HasValue)
+        {
+            query.And(s => s.ActivityTypeId == request.ActivityTypeId);
+        }
+
         return Repository!.Where(query);
     }
 }
