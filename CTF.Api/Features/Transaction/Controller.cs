@@ -8,9 +8,10 @@ using RST.DependencyInjection.Extensions.Attributes;
 
 namespace CTF.Api.Features.Transaction;
 
-[ApiController]
+[ApiController, Route(API_URL)]
 public class Controller : EnableInjectionBase<InjectAttribute>
 {
+    public const string API_URL = $"{Api.CURRENT_API_BASE_URL}/Transaction";
     [Inject] protected IMapper? Mapper { get; set; }
     [Inject] protected IMediator? Mediator { get; set; }
 

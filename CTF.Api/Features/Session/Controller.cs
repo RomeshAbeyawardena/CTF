@@ -7,9 +7,10 @@ using RST.DependencyInjection.Extensions.Attributes;
 
 namespace CTF.Api.Features.Session;
 
-[ApiController]
+[ApiController, Route(API_URL)]
 public class Controller : RST.DependencyInjection.Extensions.EnableInjectionBase<InjectAttribute>
 {
+    public const string API_URL = $"{Api.CURRENT_API_BASE_URL}/Session";
     [Inject] protected IMapper? Mapper { get; set; }
     [Inject] protected IMediator? Mediator { get; set; }
 
