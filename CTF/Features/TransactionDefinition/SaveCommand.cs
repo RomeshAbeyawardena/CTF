@@ -12,6 +12,7 @@ public class SaveCommand : IRequest<Models.TransactionDefinition>, ITransactionD
     public string? Token { get; set; }
     public string? Subject { get; set; }
     public string? Payload { get; set; }
+    public Guid SessionId { get; set; }
     public DateTimeOffset? ValidFrom { get; set; }
     public DateTimeOffset? ValidTo { get; set; }
 }

@@ -1,18 +1,37 @@
 ﻿using AutoMapper;
+using CTF.Models;
+using MediatR;
 using RST.DependencyInjection.Extensions.Attributes;
 using RST.Mediatr.Extensions;
+using ActivityLogFeature = CTF.Features.ActivityLog;
 
 namespace CTF.Features.Transaction;
 
 public class SaveHandler : RepositoryHandlerBase<SaveCommand, Models.Transaction, Models.Transaction>
 {
+    [Inject] protected IApplicationSettings? ApplicationSettings;
+    [Inject] protected IMediator? Mediator { get; set; }
     [Inject] protected IMapper? Mapper { get; set; }
     public SaveHandler(IServiceProvider serviceProvider) : base(serviceProvider)
     {
     }
 
-    public override Task<Models.Transaction> Handle(SaveCommand request, CancellationToken cancellationToken)
+    public override async Task<Models.Transaction> Handle(SaveCommand request, CancellationToken cancellationToken)
     {
-        return ProcessSave(request, Mapper!.Map<Models.Transaction>, cancellationToken);
+        var logActivity = ApplicationSettings?.LogActivity ?? false; ;
+        request.CommitChanges = !logActivity;
+        var savedTransaction = await ProcessSave(request, Mapper!.Map<Models.Transaction>, cancellationToken);
+
+        if (logActivity)
+        {
+            await Mediator!.Send(new ActivityLogFeature.SaveCommand
+            {
+                SessionId = request.ProcessedBySessionId.GetValueOrDefault(request.GeneratedBySessionId),
+                TransactionId = savedTransaction.Id,
+                CommitChanges = true
+            }, cancellationToken);
+        }
+
+        return savedTransaction;
     }
 }

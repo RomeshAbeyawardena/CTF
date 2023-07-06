@@ -1,5 +1,6 @@
 using CTF.Api;
 using CTF.Extensions;
+using CTF.Models;
 using Microsoft.OpenApi.Models;
 using RST.Extensions;
 
@@ -11,8 +12,8 @@ var services = builder.Services;
 
 services
     .AddAutoMapper(assemblies)
-    .AddSingleton<ApplicationSettings>()
-    .AddServices<ApplicationSettings>(a => a.ConnectionString, InstanceAssemblies.API_ASSEMBLY)
+    .AddSingleton<IApplicationSettings, ApplicationSettings>()
+    .AddServices<IApplicationSettings>(a => a.ConnectionString, InstanceAssemblies.API_ASSEMBLY)
     .AddMediatR(configure => configure
         .RegisterServicesFromAssemblies(assemblies))
     .AddControllers();

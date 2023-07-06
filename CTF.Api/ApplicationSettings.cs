@@ -1,6 +1,8 @@
-﻿namespace CTF.Api;
+﻿using CTF.Models;
 
-public record ApplicationSettings
+namespace CTF.Api;
+
+public record ApplicationSettings : IApplicationSettings
 {
     public ApplicationSettings(IConfiguration configuration)
     {
@@ -8,6 +10,8 @@ public record ApplicationSettings
         ConnectionString = !string.IsNullOrWhiteSpace(DefaultConnectionStringName) 
             ?  configuration.GetConnectionString(DefaultConnectionStringName) : null;
     }
+    
     public string? DefaultConnectionStringName { get; set; }
     public string? ConnectionString { get; }
+    public bool LogActivity { get; set; }
 }

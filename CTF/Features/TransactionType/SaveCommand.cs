@@ -11,4 +11,5 @@ public class SaveCommand : IRequest<Models.TransactionType>, ITransactionType, I
     public string? Name { get; set; }
     public string? DisplayName { get; set; }
     public bool Enabled { get; set; }
+    public Guid SessionId { get; set; }
 }
