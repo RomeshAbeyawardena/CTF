@@ -22,4 +22,10 @@ public record Transaction : ITransaction, IIdentity
     public string? Hash { get; set; }
     public DateTimeOffset? ValidFrom { get; set; }
     public DateTimeOffset? ProcessedTimestamp { get; set; }
+
+    public virtual Transaction? ParentTransaction { get; set; }
+    public virtual TransactionDefinition? TransactionDefinition { get; set; }
+    public virtual TransactionType? TransactionType { get; set; }
+    public virtual Session? GeneratedBySession { get; set; }
+    public virtual Session? ProcessedBySession { get; set; }
 }

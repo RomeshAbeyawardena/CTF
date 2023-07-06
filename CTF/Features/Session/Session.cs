@@ -19,4 +19,6 @@ public record Session : ISession, IIdentity
     public DateTimeOffset? ValidFrom { get; set; }
     public DateTimeOffset? ValidTo { get; set; }
     [Key]public Guid Id { get; set; }
+
+    public virtual Transaction? OwnerTransaction { get; set; }
 }
