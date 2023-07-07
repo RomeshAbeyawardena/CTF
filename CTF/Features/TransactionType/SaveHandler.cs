@@ -29,7 +29,7 @@ public class SaveHandler : RepositoryHandlerBase<SaveCommand, Models.Transaction
         {
             await Mediator!.Send(new ActivityLogFeature.SaveCommand
             {
-                ActivityType = activityType,
+                Type = activityType,
                 SessionId = request.SessionId,
                 TransactionTypeId = savedTransactionType.Id,
                 CommitChanges = true

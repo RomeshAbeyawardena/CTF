@@ -14,5 +14,12 @@ public class SaveCommand : IRequest<Models.ActivityLog>, IActivityLog, IDbComman
     public Guid? TransactionTypeId { get; set; }
     public DateTimeOffset Created { get; set; }
     public Guid ActivityTypeId { get; set; }
-    public Enumerations.ActivityType? ActivityType { get; set; }
+    public Guid? AuditedActivityTypeId { get;set; }
+    public Enumerations.ActivityType? Type { get; set; }
+
+    public Models.ActivityType? ActivityType { get; set; }
+    public Models.ActivityType? AuditedActivityType { get; set; }
+    public Models.Transaction? Transaction { get; set; }
+    public Models.TransactionDefinition? TransactionDefinition { get; set; }
+    public Models.TransactionType? TransactionType { get; set; }
 }

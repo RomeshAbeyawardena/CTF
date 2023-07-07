@@ -15,10 +15,10 @@ public class SaveHandler : RepositoryHandlerBase<SaveCommand, Models.ActivityLog
 
     public override async Task<Models.ActivityLog> Handle(SaveCommand request, CancellationToken cancellationToken)
     {
-        if (request.ActivityType.HasValue)
+        if (request.Type.HasValue)
         {
             var activityTypes = await Mediator!.Send(new Features.ActivityType.Get { 
-                ActivityType = request.ActivityType.Value
+                ActivityType = request.Type.Value
             }, cancellationToken);
 
             if (activityTypes.Any())

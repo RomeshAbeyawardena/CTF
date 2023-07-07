@@ -9,4 +9,5 @@ public interface IActivityLog : ICreated
     Guid? TransactionId { get; set; }
     Guid? TransactionDefinitionId { get; set; }
     Guid? TransactionTypeId { get; set; }
+    Guid? AuditedActivityTypeId { get; set; }
 }

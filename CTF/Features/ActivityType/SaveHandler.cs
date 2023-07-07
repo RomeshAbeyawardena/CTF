@@ -29,9 +29,9 @@ public class SaveHandler : RepositoryHandlerBase<SaveCommand, Models.ActivityTyp
         {
             await Mediator!.Send(new ActivityLogFeature.SaveCommand
             {
-                ActivityType = activityType,
+                Type = activityType,
                 SessionId = request.SessionId,
-                ActivityTypeId = savedActivityType.Id,
+                AuditedActivityTypeId = savedActivityType.Id,
                 CommitChanges = true
             }, cancellationToken);
         }

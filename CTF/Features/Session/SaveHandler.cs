@@ -29,7 +29,7 @@ public class SaveHandler : RepositoryHandlerBase<SaveCommand, Models.Session, Mo
         {
             await Mediator!.Send(new ActivityLogFeature.SaveCommand
             {
-                ActivityType = activityType,
+                Type = activityType,
                 SessionId = savedSession.Id,
                 CommitChanges = true
             }, cancellationToken);
