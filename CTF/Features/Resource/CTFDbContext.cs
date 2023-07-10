@@ -6,7 +6,7 @@ public partial class CTFDbContext
 {
     public static void Init_Resource(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Models.Resource>().HasIndex(r => r.Name);
+        modelBuilder.Entity<Models.Resource>().HasIndex(r => r.Name).IsUnique();
     }
 
     public DbSet<Models.Resource> Resources { get; set; }
