@@ -29,6 +29,6 @@ public class GetHandler : RepositoryHandlerBase<GetQuery, IQueryable<Models.Reso
             queryBuilder.And(r => EF.Functions.Like(r.Name!, $"%{request.NameSearch}%"));
         }
 
-        return Repository.Where(queryBuilder);
+        return Repository.Where(queryBuilder).Include(s => s.SessionResourceAccess);
     }
 }

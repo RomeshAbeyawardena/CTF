@@ -4,7 +4,7 @@ namespace CTF.Features;
 
 public partial class CTFDbContext
 {
-    private void Init_ActivityType(ModelBuilder builder)
+    private static void Init_ActivityType(ModelBuilder builder)
     {
         builder.Entity<Models.ActivityType>().HasIndex(a => a.Name);
     }
