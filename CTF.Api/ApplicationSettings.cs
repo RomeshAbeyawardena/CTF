@@ -14,4 +14,5 @@ public record ApplicationSettings : IApplicationSettings
     public string? DefaultConnectionStringName { get; set; }
     public string? ConnectionString { get; }
     public bool LogActivity { get; set; }
+    public int SessionAuthenticationTokenValidityPeriodInDays { get; set; }
 }
