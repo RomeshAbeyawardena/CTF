@@ -15,7 +15,7 @@ public class ValidateSessionHandler : IRequestHandler<ValidateSessionQuery, Vali
     public async Task<ValidationSessionResponse> Handle(ValidateSessionQuery request, CancellationToken cancellationToken)
     {
         //get session
-        var sessions = await mediator.Send(new Features.Session.Get(), cancellationToken);
+        var sessions = await mediator.Send(new Session.Get(), cancellationToken);
         var session = await sessions.FirstOrDefaultAsync(cancellationToken);
         if(session != null 
             && !string.IsNullOrWhiteSpace(request.SessionKey) 
