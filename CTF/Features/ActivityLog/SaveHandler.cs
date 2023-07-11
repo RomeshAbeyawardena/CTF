@@ -17,13 +17,14 @@ public class SaveHandler : RepositoryHandlerBase<SaveCommand, Models.ActivityLog
     {
         if (request.Type.HasValue)
         {
-            var activityTypes = await Mediator!.Send(new Features.ActivityType.Get { 
+            var activityTypes = await Mediator!.Send(new ActivityType.Get { 
                 ActivityType = request.Type.Value
             }, cancellationToken);
 
             if (activityTypes.Any())
             {
-                request.ActivityTypeId = activityTypes.FirstOrDefault()?.Id ?? throw new NullReferenceException("Activity Type not found");
+                request.ActivityTypeId = activityTypes.FirstOrDefault()?.Id 
+                    ?? throw new NullReferenceException("Activity Type not found");
             }
         }
 
