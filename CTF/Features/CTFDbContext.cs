@@ -16,6 +16,7 @@ public partial class CTFDbContext : DbContext
     {
         Init_ActivityType(modelBuilder);
         Init_TransactionType(modelBuilder);
+        Init_Resource(modelBuilder);
         Init_Sessions(modelBuilder);
     }
 }

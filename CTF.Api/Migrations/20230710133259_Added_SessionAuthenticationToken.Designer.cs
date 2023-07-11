@@ -4,6 +4,7 @@ using CTF.Features;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CTF.Api.Migrations
 {
     [DbContext(typeof(CTFDbContext))]
-    partial class CTFDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230710133259_Added_SessionAuthenticationToken")]
+    partial class Added_SessionAuthenticationToken
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -84,8 +87,7 @@ namespace CTF.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
+                    b.HasIndex("Name");
 
                     b.ToTable("ActivityType");
                 });
@@ -108,8 +110,7 @@ namespace CTF.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
+                    b.HasIndex("Name");
 
                     b.ToTable("Resource");
                 });
@@ -164,8 +165,7 @@ namespace CTF.Api.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Value")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR(2000)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -305,8 +305,7 @@ namespace CTF.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
+                    b.HasIndex("Name");
 
                     b.ToTable("TransactionType");
                 });

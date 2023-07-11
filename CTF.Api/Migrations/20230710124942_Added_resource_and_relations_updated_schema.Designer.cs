@@ -4,6 +4,7 @@ using CTF.Features;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CTF.Api.Migrations
 {
     [DbContext(typeof(CTFDbContext))]
-    partial class CTFDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230710124942_Added_resource_and_relations_updated_schema")]
+    partial class Added_resource_and_relations_updated_schema
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -84,8 +87,7 @@ namespace CTF.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
+                    b.HasIndex("Name");
 
                     b.ToTable("ActivityType");
                 });
@@ -107,9 +109,6 @@ namespace CTF.Api.Migrations
                         .HasColumnType("NVARCHAR(200)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
 
                     b.ToTable("Resource");
                 });
@@ -146,32 +145,6 @@ namespace CTF.Api.Migrations
                     b.HasIndex("OwnerTransactionId");
 
                     b.ToTable("Session");
-                });
-
-            modelBuilder.Entity("CTF.Features.Models.SessionAuthenticationToken", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset>("Created")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<Guid>("SessionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset?>("ValidTo")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR(2000)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SessionId");
-
-                    b.ToTable("SessionAuthenticationToken");
                 });
 
             modelBuilder.Entity("CTF.Features.Models.SessionResourceAccess", b =>
@@ -305,8 +278,7 @@ namespace CTF.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
+                    b.HasIndex("Name");
 
                     b.ToTable("TransactionType");
                 });
@@ -361,17 +333,6 @@ namespace CTF.Api.Migrations
                         .HasForeignKey("OwnerTransactionId");
 
                     b.Navigation("OwnerTransaction");
-                });
-
-            modelBuilder.Entity("CTF.Features.Models.SessionAuthenticationToken", b =>
-                {
-                    b.HasOne("CTF.Features.Models.Session", "Session")
-                        .WithMany()
-                        .HasForeignKey("SessionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Session");
                 });
 
             modelBuilder.Entity("CTF.Features.Models.SessionResourceAccess", b =>

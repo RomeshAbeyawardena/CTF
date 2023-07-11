@@ -6,7 +6,7 @@ public partial class CTFDbContext
 {
     private void Init_TransactionType(ModelBuilder builder)
     {
-        builder.Entity<Models.TransactionType>().HasIndex(a => a.Name);
+        builder.Entity<Models.TransactionType>().HasIndex(a => a.Name).IsUnique();
     }
 
     public DbSet<Models.TransactionType> TransactionType { get; set; }
