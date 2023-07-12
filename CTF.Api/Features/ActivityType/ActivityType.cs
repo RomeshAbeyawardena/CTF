@@ -1,6 +1,8 @@
-﻿namespace CTF.Api.Features.ActivityType;
+﻿using CTF.Models;
 
-public record ActivityType : Models.IActivityType
+namespace CTF.Api.Features.Models;
+
+public record ActivityType : IActivityType
 {
     public Guid? Id { get; set; }
     public string? Name { get; set; }

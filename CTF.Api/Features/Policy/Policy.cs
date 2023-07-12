@@ -1,6 +1,8 @@
-﻿namespace CTF.Api.Features.Policy;
+﻿using CTF.Models;
 
-public record Policy : Models.IPolicy
+namespace CTF.Api.Features.Models;
+
+public record Policy : IPolicy
 {
     public Guid? Id { get; set; }
     public string? Name { get; set; }

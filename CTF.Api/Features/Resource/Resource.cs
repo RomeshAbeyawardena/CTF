@@ -1,6 +1,8 @@
-﻿namespace CTF.Api.Features.Resource;
+﻿using CTF.Models;
 
-public record Resource : Models.IResource
+namespace CTF.Api.Features.Models;
+
+public record Resource : IResource
 {
     public Guid? Id { get; set; }
     public string? Name { get; set; }

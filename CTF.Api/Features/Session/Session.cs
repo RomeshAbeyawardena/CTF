@@ -1,6 +1,6 @@
-﻿namespace CTF.Api.Features.Session;
+﻿namespace CTF.Api.Features.Models;
 
-public record Session : Models.ISession
+public record Session : CTF.Models.ISession
 {
     public Guid? Id { get; set; }
     public Guid? OwnerTransactionId { get; set; }

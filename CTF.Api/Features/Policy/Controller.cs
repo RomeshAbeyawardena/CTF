@@ -19,23 +19,23 @@ public class Controller : RST.DependencyInjection.Extensions.EnableInjectionBase
         this.ConfigureInjection();
     }
 
-    [HttpGet, Route("{id?}")] public async Task<IPagedResult<Policy>> GetPolicys(
+    [HttpGet, Route("{id?}")] public async Task<IPagedResult<Models.Policy>> GetPolicys(
         [FromQuery]GetPagedQuery query, CancellationToken cancellationToken,
         [FromRoute]Guid? id)
     {
         query.Id = id;
-        return Mapper!.Map<IPagedResult<Policy>>(
+        return Mapper!.Map<IPagedResult<Models.Policy>>(
             await Mediator!.Send(query, cancellationToken));
     }
 
-    [HttpPost] public async Task<Policy> SavePolicy(
+    [HttpPost] public async Task<Models.Policy> SavePolicy(
         [FromForm]SaveCommand command, CancellationToken cancellationToken)
     {
-        return Mapper!.Map<Policy>(await Mediator!.Send(command, cancellationToken));
+        return Mapper!.Map<Models.Policy>(await Mediator!.Send(command, cancellationToken));
     }
 
     [HttpPut, Route("{id?}")]
-    public Task<Policy> SavePolicy(
+    public Task<Models.Policy> SavePolicy(
         [FromForm] SaveCommand command, CancellationToken cancellationToken,
         [FromRoute]Guid? id)
     {

@@ -7,8 +7,8 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        this.CreatePagedMapping<CTF.Features.Models.TransactionType, TransactionType>();
-        CreateMap<TransactionType, CTF.Features.Models.TransactionType>()
+        this.CreatePagedMapping<CTF.Features.Models.TransactionType, Models.TransactionType>();
+        CreateMap<Models.TransactionType, CTF.Features.Models.TransactionType>()
             .ReverseMap();
     }
 }

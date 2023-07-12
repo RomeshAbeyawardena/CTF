@@ -19,23 +19,23 @@ public class Controller : RST.DependencyInjection.Extensions.EnableInjectionBase
         this.ConfigureInjection();
     }
 
-    [HttpGet, Route("{id?}")] public async Task<IPagedResult<ActivityType>> GetActivityTypes(
+    [HttpGet, Route("{id?}")] public async Task<IPagedResult<Models.ActivityType>> GetActivityTypes(
         [FromQuery]GetPagedQuery query, CancellationToken cancellationToken,
         [FromRoute]Guid? id)
     {
         query.Id = id;
-        return Mapper!.Map<IPagedResult<ActivityType>>(
+        return Mapper!.Map<IPagedResult<Models.ActivityType>>(
             await Mediator!.Send(query, cancellationToken));
     }
 
-    [HttpPost] public async Task<ActivityType> SaveActivityType(
+    [HttpPost] public async Task<Models.ActivityType> SaveActivityType(
         [FromForm]SaveCommand command, CancellationToken cancellationToken)
     {
-        return Mapper!.Map<ActivityType>(await Mediator!.Send(command, cancellationToken));
+        return Mapper!.Map<Models.ActivityType>(await Mediator!.Send(command, cancellationToken));
     }
 
     [HttpPut, Route("{id?}")]
-    public Task<ActivityType> SaveActivityType(
+    public Task<Models.ActivityType> SaveActivityType(
         [FromForm] SaveCommand command, CancellationToken cancellationToken,
         [FromRoute]Guid? id)
     {
