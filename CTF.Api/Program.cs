@@ -13,8 +13,7 @@ var services = builder.Services;
 
 services
     .AddAutoMapper(assemblies)
-    .AddSingleton<IApplicationSettings, ApplicationSettings>()
-    .AddServices<IApplicationSettings>(a => a.ConnectionString, InstanceAssemblies.API_ASSEMBLY)
+    .AddServices<IApplicationSettings>(a => a.ConnectionString, InstanceAssemblies.API_ASSEMBLY, assemblies)
     .AddMediatR(configure => configure
         .RegisterServicesFromAssemblies(assemblies))
     .AddControllers()

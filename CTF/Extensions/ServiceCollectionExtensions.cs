@@ -5,15 +5,18 @@ using RST.EntityFrameworkCore.Extensions;
 using System.Data;
 using System.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace CTF.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddServices<TApplicationServices>(this IServiceCollection services, Func<TApplicationServices, string?> getConnectionString, string migrationAssemblyName)
+        public static IServiceCollection AddServices<TApplicationServices>(this IServiceCollection services, 
+            Func<TApplicationServices, string?> getConnectionString, string migrationAssemblyName, params Assembly[] assemblies)
             where TApplicationServices : class
         {
             return services
+                .AddServicesWithRegisterAttribute(opt => opt.ConfigureCoreServices = true, assemblies)
                 .AddTransient<IDbConnection>(s =>
                 {
                     var applicationServices = s.GetRequiredService<TApplicationServices>();

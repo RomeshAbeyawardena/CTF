@@ -63,7 +63,7 @@ namespace CTF.Api.Migrations
 
                     b.HasIndex("TransactionTypeId");
 
-                    b.ToTable("ActivityLog");
+                    b.ToTable("ActivityLog", (string)null);
                 });
 
             modelBuilder.Entity("CTF.Features.Models.ActivityType", b =>
@@ -87,7 +87,7 @@ namespace CTF.Api.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("ActivityType");
+                    b.ToTable("ActivityType", (string)null);
                 });
 
             modelBuilder.Entity("CTF.Features.Models.Policy", b =>
@@ -117,7 +117,7 @@ namespace CTF.Api.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Policy");
+                    b.ToTable("Policy", (string)null);
                 });
 
             modelBuilder.Entity("CTF.Features.Models.Resource", b =>
@@ -144,7 +144,7 @@ namespace CTF.Api.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Resource");
+                    b.ToTable("Resource", (string)null);
                 });
 
             modelBuilder.Entity("CTF.Features.Models.ResourcePolicy", b =>
@@ -178,7 +178,7 @@ namespace CTF.Api.Migrations
 
                     b.HasIndex("ResourceId");
 
-                    b.ToTable("ResourcePolicy");
+                    b.ToTable("ResourcePolicy", (string)null);
                 });
 
             modelBuilder.Entity("CTF.Features.Models.Session", b =>
@@ -212,7 +212,7 @@ namespace CTF.Api.Migrations
 
                     b.HasIndex("OwnerTransactionId");
 
-                    b.ToTable("Session");
+                    b.ToTable("Session", (string)null);
                 });
 
             modelBuilder.Entity("CTF.Features.Models.SessionAuthenticationToken", b =>
@@ -238,7 +238,7 @@ namespace CTF.Api.Migrations
 
                     b.HasIndex("SessionId");
 
-                    b.ToTable("SessionAuthenticationToken");
+                    b.ToTable("SessionAuthenticationToken", (string)null);
                 });
 
             modelBuilder.Entity("CTF.Features.Models.SessionResourceAccess", b =>
@@ -268,7 +268,7 @@ namespace CTF.Api.Migrations
 
                     b.HasIndex("SessionId");
 
-                    b.ToTable("SessionResourceAccess");
+                    b.ToTable("SessionResourceAccess", (string)null);
                 });
 
             modelBuilder.Entity("CTF.Features.Models.Transaction", b =>
@@ -318,7 +318,7 @@ namespace CTF.Api.Migrations
 
                     b.HasIndex("TransactionTypeId");
 
-                    b.ToTable("Transaction");
+                    b.ToTable("Transaction", (string)null);
                 });
 
             modelBuilder.Entity("CTF.Features.Models.TransactionDefinition", b =>
@@ -351,7 +351,7 @@ namespace CTF.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TransactionDefinition");
+                    b.ToTable("TransactionDefinition", (string)null);
                 });
 
             modelBuilder.Entity("CTF.Features.Models.TransactionType", b =>
@@ -375,7 +375,7 @@ namespace CTF.Api.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("TransactionType");
+                    b.ToTable("TransactionType", (string)null);
                 });
 
             modelBuilder.Entity("CTF.Features.Models.ActivityLog", b =>
