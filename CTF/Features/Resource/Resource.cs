@@ -16,6 +16,6 @@ public record Resource : IResource, IIdentity
     [ColumnDescriptor(System.Data.SqlDbType.NVarChar, 2000)]
     public string? Description { get; set; }
     public bool IsAvailable { get; set; }
-
+    public DateTimeOffset? ImportedDate { get; set; }
     public virtual ICollection<SessionResourceAccess>? SessionResourceAccess { get; set; }
 }

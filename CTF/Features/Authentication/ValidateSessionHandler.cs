@@ -21,18 +21,23 @@ public class ValidateSessionHandler : IRequestHandler<ValidateSessionQuery, Vali
 
     public async Task<ValidationSessionResponse> Handle(ValidateSessionQuery request, CancellationToken cancellationToken)
     {
+        var utcNow = clockProvider.UtcNow;
         //get session
-        var sessions = await mediator.Send(new Session.Get(), cancellationToken);
+        var sessions = await mediator.Send(new Session.Get
+        {
+            Key = request.SessionKey,
+            Token = request.SessionToken,
+            EndDate = utcNow.Date,
+        }, cancellationToken);
         var session = await sessions.FirstOrDefaultAsync(cancellationToken);
         if(session != null 
             && !string.IsNullOrWhiteSpace(request.SessionKey) 
             && request.SessionKey == session.Key
             && request.SessionToken == session.Token)
         {
-            var utcNow = clockProvider.UtcNow;
             var sessionAuthenticationTokens = await mediator!.Send(new SessionAuthenticationToken.GetQuery { 
                 SessionId = session.Id,
-                StartDate = utcNow.Date
+                EndDate = utcNow.Date
             }, cancellationToken);
 
             var sessionToken = await sessionAuthenticationTokens.FirstOrDefaultAsync(cancellationToken);
@@ -42,7 +47,7 @@ public class ValidateSessionHandler : IRequestHandler<ValidateSessionQuery, Vali
                 sessionToken = await mediator.Send(new SessionAuthenticationToken.SaveCommand {
                     SessionId = session.Id,
                     CommitChanges = true,
-                    ValidTo = utcNow.Date.AddDays(
+                    ValidTo = utcNow.AddDays(
                     applicationSettings
                         .SessionAuthenticationTokenValidityPeriodInDays)
                 }, cancellationToken);

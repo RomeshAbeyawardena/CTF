@@ -10,5 +10,6 @@ public record SaveCommand : IRequest<Models.Resource>, IResource, IDbCommand
     public string? Name { get; set; }
     public string? Description { get; set; }
     public bool IsAvailable { get; set; }
+    public DateTimeOffset? ImportedDate { get; set; }
     public bool CommitChanges { get; set; }
 }
