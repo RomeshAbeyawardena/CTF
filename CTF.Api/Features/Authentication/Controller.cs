@@ -10,7 +10,7 @@ namespace CTF.Api.Features.Authentication;
 [ApiController, Route(API_URL)]
 public class Controller : RST.DependencyInjection.Extensions.EnableInjectionBase<InjectAttribute>
 {
-    public const string API_URL = $"{Api.CURRENT_API_BASE_URL}/Activity";
+    public const string API_URL = $"{Api.CURRENT_API_BASE_URL}/Authentication";
     [Inject] protected IMapper? Mapper { get; set; }
     [Inject] protected IMediator? Mediator { get; set; }
 
