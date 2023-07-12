@@ -21,4 +21,5 @@ public record Session : ISession, IIdentity
     [Key]public Guid Id { get; set; }
 
     public virtual Transaction? OwnerTransaction { get; set; }
+    public virtual ICollection<SessionResourceAccess>? SessionResourceAccess { get; set; }
 }

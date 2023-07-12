@@ -19,28 +19,28 @@ public class Controller : RST.DependencyInjection.Extensions.EnableInjectionBase
         this.ConfigureInjection();
     }
 
-    [HttpGet, Route("{sessionId}/{id?}")] public async Task<IPagedResult<ActivityLog>> GetSessions([FromRoute]Guid sessionId,
+    [HttpGet, Route("{sessionId}/{id?}")] public async Task<IPagedResult<Models.ActivityLog>> GetActivityLogs([FromRoute]Guid sessionId,
         [FromQuery]GetPaged query, CancellationToken cancellationToken,
         [FromRoute]Guid? id)
     {
         query.SessionId = sessionId;
         query.Id = id;
-        return Mapper!.Map<IPagedResult<ActivityLog>>(
+        return Mapper!.Map<IPagedResult<Models.ActivityLog>>(
             await Mediator!.Send(query, cancellationToken));
     }
 
-    [HttpPost] public async Task<ActivityLog> SaveSession(
+    [HttpPost] public async Task<Models.ActivityLog> SaveActivityLog(
         [FromForm]SaveCommand command, CancellationToken cancellationToken)
     {
-        return Mapper!.Map<ActivityLog>(await Mediator!.Send(command, cancellationToken));
+        return Mapper!.Map<Models.ActivityLog>(await Mediator!.Send(command, cancellationToken));
     }
 
     [HttpPut, Route("{id?}")]
-    public Task<ActivityLog> SaveSession(
+    public Task<Models.ActivityLog> SaveActivityLog(
         [FromForm] SaveCommand command, CancellationToken cancellationToken,
         [FromRoute]Guid? id)
     {
         command.Id = id;
-        return SaveSession(command, cancellationToken);
+        return SaveActivityLog(command, cancellationToken);
     }
 }

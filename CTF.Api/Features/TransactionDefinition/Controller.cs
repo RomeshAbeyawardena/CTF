@@ -21,24 +21,24 @@ public class Controller : EnableInjectionBase<InjectAttribute>
     }
 
     [HttpGet, Route("{id?}")]
-    public async Task<IPagedResult<TransactionDefinition>> GetTransactionDefinitions(
+    public async Task<IPagedResult<Models.TransactionDefinition>> GetTransactionDefinitions(
         [FromQuery] GetPaged query, CancellationToken cancellationToken,
         [FromRoute] Guid? id)
     {
         query.Id = id;
-        return Mapper!.Map<IPagedResult<TransactionDefinition>>(
+        return Mapper!.Map<IPagedResult<Models.TransactionDefinition>>(
             await Mediator!.Send(query, cancellationToken));
     }
 
     [HttpPost]
-    public async Task<TransactionDefinition> SaveTransactionDefinition(
+    public async Task<Models.TransactionDefinition> SaveTransactionDefinition(
         [FromForm] SaveCommand command, CancellationToken cancellationToken)
     {
-        return Mapper!.Map<TransactionDefinition>(await Mediator!.Send(command, cancellationToken));
+        return Mapper!.Map<Models.TransactionDefinition>(await Mediator!.Send(command, cancellationToken));
     }
 
     [HttpPut, Route("{id?}")]
-    public Task<TransactionDefinition> SaveTransactionDefinition(
+    public Task<Models.TransactionDefinition> SaveTransactionDefinition(
         [FromForm] SaveCommand command, CancellationToken cancellationToken,
         [FromRoute] Guid? id)
     {

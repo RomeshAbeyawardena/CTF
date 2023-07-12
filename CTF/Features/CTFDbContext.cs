@@ -15,6 +15,8 @@ public partial class CTFDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         Init_ActivityType(modelBuilder);
+        Init_Policy(modelBuilder);
+        Init_Resource(modelBuilder);
         Init_TransactionType(modelBuilder);
         Init_Sessions(modelBuilder);
     }

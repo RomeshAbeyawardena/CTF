@@ -1,6 +1,6 @@
 ﻿using CTF.Models;
 
-namespace CTF.Api.Features.Transaction;
+namespace CTF.Api.Features.Models;
 
 public class Transaction : ITransaction
 {

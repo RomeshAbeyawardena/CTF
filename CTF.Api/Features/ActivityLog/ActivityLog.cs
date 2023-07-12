@@ -1,6 +1,8 @@
-﻿namespace CTF.Api.Features.ActivityLog;
+﻿using CTF.Models;
 
-public record ActivityLog : Models.IActivityLog
+namespace CTF.Api.Features.Models;
+
+public record ActivityLog : IActivityLog
 {
     public Guid? Id { get; set; }
     public Guid SessionId { get; set; }
