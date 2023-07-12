@@ -3,6 +3,7 @@ using CTF.Extensions;
 using CTF.Models;
 using Microsoft.OpenApi.Models;
 using RST.Extensions;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 var assemblies = InstanceAssemblies.Names.LoadAssemblies()
@@ -12,11 +13,11 @@ var services = builder.Services;
 
 services
     .AddAutoMapper(assemblies)
-    .AddSingleton<IApplicationSettings, ApplicationSettings>()
-    .AddServices<IApplicationSettings>(a => a.ConnectionString, InstanceAssemblies.API_ASSEMBLY)
+    .AddServices<IApplicationSettings>(a => a.ConnectionString, InstanceAssemblies.API_ASSEMBLY, assemblies)
     .AddMediatR(configure => configure
         .RegisterServicesFromAssemblies(assemblies))
-    .AddControllers();
+    .AddControllers()
+    .AddJsonOptions(options => { options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); }); ;
 services
     .AddSwaggerGen(c => {
         c.CustomSchemaIds(c => c.FullName);

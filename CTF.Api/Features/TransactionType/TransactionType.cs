@@ -1,6 +1,6 @@
 ﻿using CTF.Models;
 
-namespace CTF.Api.Features.TransactionType;
+namespace CTF.Api.Features.Models;
 
 public class TransactionType : ITransactionType
 {

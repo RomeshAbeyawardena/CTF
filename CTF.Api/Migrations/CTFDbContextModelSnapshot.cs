@@ -63,7 +63,7 @@ namespace CTF.Api.Migrations
 
                     b.HasIndex("TransactionTypeId");
 
-                    b.ToTable("ActivityLog");
+                    b.ToTable("ActivityLog", (string)null);
                 });
 
             modelBuilder.Entity("CTF.Features.Models.ActivityType", b =>
@@ -84,9 +84,101 @@ namespace CTF.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name");
+                    b.HasIndex("Name")
+                        .IsUnique();
 
-                    b.ToTable("ActivityType");
+                    b.ToTable("ActivityType", (string)null);
+                });
+
+            modelBuilder.Entity("CTF.Features.Models.Policy", b =>
+                {
+                    b.Property<Guid?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("CanDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("CanRead")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("CanWrite")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HasPublicAccess")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR(200)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Policy", (string)null);
+                });
+
+            modelBuilder.Entity("CTF.Features.Models.Resource", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("NVARCHAR(2000)");
+
+                    b.Property<DateTimeOffset?>("ImportedDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsAvailable")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR(200)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Resource", (string)null);
+                });
+
+            modelBuilder.Entity("CTF.Features.Models.ResourcePolicy", b =>
+                {
+                    b.Property<Guid?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR(200)");
+
+                    b.Property<Guid>("PolicyId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ResourceId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset?>("ValidTo")
+                        .HasColumnType("datetimeoffset");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.HasIndex("PolicyId");
+
+                    b.HasIndex("ResourceId");
+
+                    b.ToTable("ResourcePolicy", (string)null);
                 });
 
             modelBuilder.Entity("CTF.Features.Models.Session", b =>
@@ -120,7 +212,63 @@ namespace CTF.Api.Migrations
 
                     b.HasIndex("OwnerTransactionId");
 
-                    b.ToTable("Session");
+                    b.ToTable("Session", (string)null);
+                });
+
+            modelBuilder.Entity("CTF.Features.Models.SessionAuthenticationToken", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<Guid>("SessionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset?>("ValidTo")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR(2000)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SessionId");
+
+                    b.ToTable("SessionAuthenticationToken", (string)null);
+                });
+
+            modelBuilder.Entity("CTF.Features.Models.SessionResourceAccess", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("ResourceId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SessionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset?>("ValidTo")
+                        .HasColumnType("datetimeoffset");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ResourceId");
+
+                    b.HasIndex("SessionId");
+
+                    b.ToTable("SessionResourceAccess", (string)null);
                 });
 
             modelBuilder.Entity("CTF.Features.Models.Transaction", b =>
@@ -170,7 +318,7 @@ namespace CTF.Api.Migrations
 
                     b.HasIndex("TransactionTypeId");
 
-                    b.ToTable("Transaction");
+                    b.ToTable("Transaction", (string)null);
                 });
 
             modelBuilder.Entity("CTF.Features.Models.TransactionDefinition", b =>
@@ -203,7 +351,7 @@ namespace CTF.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TransactionDefinition");
+                    b.ToTable("TransactionDefinition", (string)null);
                 });
 
             modelBuilder.Entity("CTF.Features.Models.TransactionType", b =>
@@ -224,9 +372,10 @@ namespace CTF.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name");
+                    b.HasIndex("Name")
+                        .IsUnique();
 
-                    b.ToTable("TransactionType");
+                    b.ToTable("TransactionType", (string)null);
                 });
 
             modelBuilder.Entity("CTF.Features.Models.ActivityLog", b =>
@@ -272,6 +421,25 @@ namespace CTF.Api.Migrations
                     b.Navigation("TransactionType");
                 });
 
+            modelBuilder.Entity("CTF.Features.Models.ResourcePolicy", b =>
+                {
+                    b.HasOne("CTF.Features.Models.Policy", "Policy")
+                        .WithMany()
+                        .HasForeignKey("PolicyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CTF.Features.Models.Resource", "Resource")
+                        .WithMany()
+                        .HasForeignKey("ResourceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Policy");
+
+                    b.Navigation("Resource");
+                });
+
             modelBuilder.Entity("CTF.Features.Models.Session", b =>
                 {
                     b.HasOne("CTF.Features.Models.Transaction", "OwnerTransaction")
@@ -279,6 +447,36 @@ namespace CTF.Api.Migrations
                         .HasForeignKey("OwnerTransactionId");
 
                     b.Navigation("OwnerTransaction");
+                });
+
+            modelBuilder.Entity("CTF.Features.Models.SessionAuthenticationToken", b =>
+                {
+                    b.HasOne("CTF.Features.Models.Session", "Session")
+                        .WithMany()
+                        .HasForeignKey("SessionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Session");
+                });
+
+            modelBuilder.Entity("CTF.Features.Models.SessionResourceAccess", b =>
+                {
+                    b.HasOne("CTF.Features.Models.Resource", "Resource")
+                        .WithMany("SessionResourceAccess")
+                        .HasForeignKey("ResourceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CTF.Features.Models.Session", "Session")
+                        .WithMany("SessionResourceAccess")
+                        .HasForeignKey("SessionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Resource");
+
+                    b.Navigation("Session");
                 });
 
             modelBuilder.Entity("CTF.Features.Models.Transaction", b =>
@@ -318,6 +516,16 @@ namespace CTF.Api.Migrations
                     b.Navigation("TransactionDefinition");
 
                     b.Navigation("TransactionType");
+                });
+
+            modelBuilder.Entity("CTF.Features.Models.Resource", b =>
+                {
+                    b.Navigation("SessionResourceAccess");
+                });
+
+            modelBuilder.Entity("CTF.Features.Models.Session", b =>
+                {
+                    b.Navigation("SessionResourceAccess");
                 });
 #pragma warning restore 612, 618
         }

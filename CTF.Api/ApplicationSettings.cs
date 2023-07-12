@@ -1,7 +1,9 @@
 ﻿using CTF.Models;
+using RST.Attributes;
 
 namespace CTF.Api;
 
+[Register]
 public record ApplicationSettings : IApplicationSettings
 {
     public ApplicationSettings(IConfiguration configuration)
@@ -14,4 +16,5 @@ public record ApplicationSettings : IApplicationSettings
     public string? DefaultConnectionStringName { get; set; }
     public string? ConnectionString { get; }
     public bool LogActivity { get; set; }
+    public int SessionAuthenticationTokenValidityPeriodInDays { get; set; }
 }

@@ -4,7 +4,7 @@ using RST.Contracts;
 
 namespace CTF.Features.ActivityType;
 
-public class SaveCommand : IRequest<Models.ActivityType>, IActivityType, IDbCommand
+public record SaveCommand : IRequest<Models.ActivityType>, IActivityType, IDbCommand
 {
     public Guid? Id { get; set; }
     public bool CommitChanges { get; set; }

@@ -1,4 +1,5 @@
 ﻿using RST.Mediatr.Extensions;
+using System.Data.Entity;
 
 namespace CTF.Features.Session;
 
@@ -33,6 +34,6 @@ public class GetHandler : RepositoryHandlerBase<Get, IQueryable<Models.Session>,
             query.And(s => s.Token == request.Token);
         }
 
-        return Repository!.Where(query);
+        return Repository!.Where(query).Include(s => s.SessionResourceAccess).Include(s => s.OwnerTransaction);
     }
 }
