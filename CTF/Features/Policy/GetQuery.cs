@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 
-namespace CTF.Features.Policy
+namespace CTF.Features.Policy;
+
+public record GetQuery : IRequest<IQueryable<Models.Policy>>, IQuery
 {
-    internal class GetQuery
-    {
-    }
+    public Guid? Id { get; set; }
+    public string? NameSearch { get; }
+    public bool? HasPublicAccess { get; set; }
+    public bool? CanRead { get; set; }
+    public bool? CanWrite { get; set; }
+    public bool? CanDelete { get; set; }
 }
