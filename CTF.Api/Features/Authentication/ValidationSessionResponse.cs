@@ -1,6 +1,6 @@
 ﻿using CTF.Models;
 
-namespace CTF.Features.Authentication;
+namespace CTF.Api.Features.Models;
 
 public record ValidationSessionResponse : IValidationSessionResponse
 {

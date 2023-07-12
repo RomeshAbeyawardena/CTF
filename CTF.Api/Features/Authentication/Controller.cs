@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CTF.Features.ActivityLog;
+using CTF.Features.Authentication;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using RST.Contracts;
@@ -19,28 +19,11 @@ public class Controller : RST.DependencyInjection.Extensions.EnableInjectionBase
         this.ConfigureInjection();
     }
 
-    [HttpGet, Route("{sessionId}/{id?}")] public async Task<IPagedResult<Models.ActivityLog>> GetSessions([FromRoute]Guid sessionId,
-        [FromQuery]GetPaged query, CancellationToken cancellationToken,
-        [FromRoute]Guid? id)
+    [HttpGet, ] public async Task<IPagedResult<Models.ValidationSessionResponse>> Validate(
+        [FromHeader] ValidateSessionQuery query, CancellationToken cancellationToken)
     {
-        query.SessionId = sessionId;
-        query.Id = id;
-        return Mapper!.Map<IPagedResult<Models.ActivityLog>>(
+        return Mapper!.Map<IPagedResult<Models.ValidationSessionResponse>>(
             await Mediator!.Send(query, cancellationToken));
     }
 
-    [HttpPost] public async Task<Models.ActivityLog> SaveSession(
-        [FromForm]SaveCommand command, CancellationToken cancellationToken)
-    {
-        return Mapper!.Map<Models.ActivityLog>(await Mediator!.Send(command, cancellationToken));
-    }
-
-    [HttpPut, Route("{id?}")]
-    public Task<Models.ActivityLog> SaveSession(
-        [FromForm] SaveCommand command, CancellationToken cancellationToken,
-        [FromRoute]Guid? id)
-    {
-        command.Id = id;
-        return SaveSession(command, cancellationToken);
-    }
 }
