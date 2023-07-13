@@ -7,6 +7,7 @@ namespace CTF.Features.TransactionDefinition;
 public class SaveCommand : IRequest<Models.TransactionDefinition>, ITransactionDefinition, IDbCommand
 {
     public Guid? Id { get; set; }
+    public Guid? ClientId { get; set; }
     public bool CommitChanges { get; set; }
     public string? Key { get; set; }
     public string? Token { get; set; }

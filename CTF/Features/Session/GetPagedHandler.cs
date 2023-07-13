@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace CTF.Features.Session;
 
-public class GetPagedHandler : PagedRepositoryHandlerBase<GetPaged, Models.Session>
+public class GetPagedHandler : PagedRepositoryHandlerBase<GetPagedQuery, Models.Session>
 {
     [Inject] protected IMapper? Mapper { get; set; }
     [Inject] protected IMediator? Mediator { get; set; }
@@ -22,9 +22,9 @@ public class GetPagedHandler : PagedRepositoryHandlerBase<GetPaged, Models.Sessi
     {
     }
 
-    public override async Task<IPagedResult<Models.Session>> Handle(GetPaged request, CancellationToken cancellationToken)
+    public override async Task<IPagedResult<Models.Session>> Handle(GetPagedQuery request, CancellationToken cancellationToken)
     {
-        var query = await Mediator!.Send(Mapper!.Map<Get>(request), cancellationToken);
+        var query = await Mediator!.Send(Mapper!.Map<GetQuery>(request), cancellationToken);
 
         return await ProcessPagedQuery(query, request, cancellationToken);
     }

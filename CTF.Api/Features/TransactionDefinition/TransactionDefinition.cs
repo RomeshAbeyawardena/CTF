@@ -5,6 +5,7 @@ namespace CTF.Api.Features.Models;
 public class TransactionDefinition : ITransaction
 {
     public Guid? Id { get; set; }
+    public Guid? ClientId { get; set; }
     public Guid TransactionTypeId { get; set; }
     public Guid TransactionDefinitionId { get; set; }
     public Guid? ParentTransactionId { get; set; }

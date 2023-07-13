@@ -10,6 +10,7 @@ public record ActivityLog : IActivityLog, IIdentity
 {
     [Key]
     public Guid Id { get; set; }
+    public Guid? ClientId { get; set; }
     public Guid SessionId { get; set; }
     public Guid? TransactionId { get; set; }
     public Guid? TransactionDefinitionId { get; set; }
@@ -24,4 +25,5 @@ public record ActivityLog : IActivityLog, IIdentity
     public virtual TransactionType? TransactionType { get; set; }
     public virtual ActivityType? ActivityType { get; set; }
     public virtual ActivityType? AuditedActivityType { get; set; }
+    public virtual Client? Client { get; set; }
 }

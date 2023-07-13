@@ -5,6 +5,7 @@
 /// </summary>
 public interface ISession
 {
+    Guid? ClientId { get; set; }
     /// <summary>
     /// Gets or sets the owner of the transaction
     /// </summary>

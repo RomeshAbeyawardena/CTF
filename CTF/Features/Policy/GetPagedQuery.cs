@@ -7,6 +7,7 @@ namespace CTF.Features.Policy;
 public record GetPagedQuery : IPagedRequest<Models.Policy>, IQuery
 {
     public Guid? Id { get; set; }
+    public Guid? ClientId { get; set; }
     public int? PageIndex { get; set; }
     public int? TotalItemsPerPage { get; set; }
     public IEnumerable<string>? OrderByFields { get; set; }

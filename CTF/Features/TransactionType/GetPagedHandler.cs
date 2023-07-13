@@ -17,7 +17,7 @@ public class GetPagedHandler : PagedRepositoryHandlerBase<GetPaged, Models.Trans
 
     public override async Task<IPagedResult<Models.TransactionType>> Handle(GetPaged request, CancellationToken cancellationToken)
     {
-        var query = await Mediator!.Send(Mapper!.Map<Get>(request), cancellationToken);
+        var query = await Mediator!.Send(Mapper!.Map<GetQuery>(request), cancellationToken);
 
         return await ProcessPagedQuery(query, request, cancellationToken);
     }

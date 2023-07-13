@@ -19,6 +19,11 @@ public class GetHandler : RepositoryHandlerBase<GetQuery, IQueryable<Models.Reso
             queryBuilder.And(r => r.Id == request.Id);
         }
 
+        if (request.ClientId.HasValue)
+        {
+            queryBuilder.And(s => s.ClientId == request.ClientId);
+        }
+
         if (!request.ShowAll.HasValue || !request.ShowAll.Value)
         {
             queryBuilder.And(r => r.IsAvailable);

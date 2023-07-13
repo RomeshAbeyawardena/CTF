@@ -11,6 +11,7 @@ public record TransactionDefinition : ITransactionDefinition, IIdentity
 {
     [Key]
     public Guid Id { get; set; }
+    public Guid? ClientId { get; set; }
     [Required, ColumnDescriptor(System.Data.SqlDbType.NVarChar, 255)]
     public string? Key { get; set; }
     [Required, ColumnDescriptor(System.Data.SqlDbType.NVarChar, 800)]
@@ -21,4 +22,6 @@ public record TransactionDefinition : ITransactionDefinition, IIdentity
     public string? Payload { get; set; }
     public DateTimeOffset? ValidFrom { get; set; }
     public DateTimeOffset? ValidTo { get; set; }
+
+    public virtual Client? Client { get; set; }
 }

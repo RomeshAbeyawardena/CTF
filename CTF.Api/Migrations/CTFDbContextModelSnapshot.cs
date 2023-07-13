@@ -63,7 +63,7 @@ namespace CTF.Api.Migrations
 
                     b.HasIndex("TransactionTypeId");
 
-                    b.ToTable("ActivityLog", (string)null);
+                    b.ToTable("ActivityLog");
                 });
 
             modelBuilder.Entity("CTF.Features.Models.ActivityType", b =>
@@ -87,7 +87,40 @@ namespace CTF.Api.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("ActivityType", (string)null);
+                    b.ToTable("ActivityType");
+                });
+
+            modelBuilder.Entity("CTF.Features.Models.Client", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("DisplayName")
+                        .HasColumnType("NVARCHAR(2000)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR(200)");
+
+                    b.Property<Guid?>("ParentClientId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Reference")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR(80)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.HasIndex("ParentClientId");
+
+                    b.HasIndex("Reference")
+                        .IsUnique();
+
+                    b.ToTable("Client");
                 });
 
             modelBuilder.Entity("CTF.Features.Models.Policy", b =>
@@ -117,7 +150,7 @@ namespace CTF.Api.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Policy", (string)null);
+                    b.ToTable("Policy");
                 });
 
             modelBuilder.Entity("CTF.Features.Models.Resource", b =>
@@ -144,7 +177,7 @@ namespace CTF.Api.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Resource", (string)null);
+                    b.ToTable("Resource");
                 });
 
             modelBuilder.Entity("CTF.Features.Models.ResourcePolicy", b =>
@@ -178,7 +211,7 @@ namespace CTF.Api.Migrations
 
                     b.HasIndex("ResourceId");
 
-                    b.ToTable("ResourcePolicy", (string)null);
+                    b.ToTable("ResourcePolicy");
                 });
 
             modelBuilder.Entity("CTF.Features.Models.Session", b =>
@@ -212,7 +245,7 @@ namespace CTF.Api.Migrations
 
                     b.HasIndex("OwnerTransactionId");
 
-                    b.ToTable("Session", (string)null);
+                    b.ToTable("Session");
                 });
 
             modelBuilder.Entity("CTF.Features.Models.SessionAuthenticationToken", b =>
@@ -238,7 +271,7 @@ namespace CTF.Api.Migrations
 
                     b.HasIndex("SessionId");
 
-                    b.ToTable("SessionAuthenticationToken", (string)null);
+                    b.ToTable("SessionAuthenticationToken");
                 });
 
             modelBuilder.Entity("CTF.Features.Models.SessionResourceAccess", b =>
@@ -268,7 +301,7 @@ namespace CTF.Api.Migrations
 
                     b.HasIndex("SessionId");
 
-                    b.ToTable("SessionResourceAccess", (string)null);
+                    b.ToTable("SessionResourceAccess");
                 });
 
             modelBuilder.Entity("CTF.Features.Models.Transaction", b =>
@@ -318,7 +351,7 @@ namespace CTF.Api.Migrations
 
                     b.HasIndex("TransactionTypeId");
 
-                    b.ToTable("Transaction", (string)null);
+                    b.ToTable("Transaction");
                 });
 
             modelBuilder.Entity("CTF.Features.Models.TransactionDefinition", b =>
@@ -351,7 +384,7 @@ namespace CTF.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TransactionDefinition", (string)null);
+                    b.ToTable("TransactionDefinition");
                 });
 
             modelBuilder.Entity("CTF.Features.Models.TransactionType", b =>
@@ -375,7 +408,7 @@ namespace CTF.Api.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("TransactionType", (string)null);
+                    b.ToTable("TransactionType");
                 });
 
             modelBuilder.Entity("CTF.Features.Models.ActivityLog", b =>
@@ -419,6 +452,15 @@ namespace CTF.Api.Migrations
                     b.Navigation("TransactionDefinition");
 
                     b.Navigation("TransactionType");
+                });
+
+            modelBuilder.Entity("CTF.Features.Models.Client", b =>
+                {
+                    b.HasOne("CTF.Features.Models.Client", "ParentClient")
+                        .WithMany()
+                        .HasForeignKey("ParentClientId");
+
+                    b.Navigation("ParentClient");
                 });
 
             modelBuilder.Entity("CTF.Features.Models.ResourcePolicy", b =>

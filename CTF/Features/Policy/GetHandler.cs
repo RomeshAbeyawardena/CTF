@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RST.Mediatr.Extensions;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace CTF.Features.Policy;
 
@@ -18,6 +19,11 @@ public class GetHandler : RepositoryHandlerBase<GetQuery, IQueryable<Models.Poli
         if (request.Id.HasValue)
         {
             queryBuilder.And(p => p.Id == request.Id);
+        }
+
+        if (request.ClientId.HasValue)
+        {
+            queryBuilder.And(s => s.ClientId == request.ClientId);
         }
 
         if (!string.IsNullOrWhiteSpace(request.NameSearch))
