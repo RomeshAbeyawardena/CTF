@@ -6,7 +6,7 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        CreateMap<GetPaged, Get>();
+        CreateMap<GetPaged, GetQuery>();
         CreateMap<SaveCommand, Models.TransactionType>();
     }
 }

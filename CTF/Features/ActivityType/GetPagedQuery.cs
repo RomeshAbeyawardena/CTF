@@ -3,7 +3,7 @@ using RST.Enumerations;
 
 namespace CTF.Features.ActivityType;
 
-public record GetPaged : IPagedRequest<Models.ActivityType>, IQuery
+public record GetPagedQuery : IPagedRequest<Models.ActivityType>, IQuery
 {
     public bool? NoTracking { get; set; }
     public Guid? Id { get; set; }
