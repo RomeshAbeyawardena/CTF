@@ -66,8 +66,8 @@ public class InitialiseHandler : EnableInjectionBase<InjectAttribute>, IRequestH
         await Connection.ExecuteAsync(sqlBuilder.ToString());
 
         query = await Mediator.Send(new Resource.GetQuery { 
-            StartDate = ClockProvider!.UtcNow,
-            EndDate = ClockProvider!.UtcNow
+            StartDate = ClockProvider!.UtcNow.Date,
+            EndDate = ClockProvider!.UtcNow.Date.AddHours(23).AddMinutes(59).AddSeconds(59)
         }, cancellationToken);
 
         return new InitialisationResult();

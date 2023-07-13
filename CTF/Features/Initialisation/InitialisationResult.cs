@@ -1,6 +1,8 @@
-﻿namespace CTF.Features.Initalisation;
+﻿using CTF.Models;
 
-public record InitialisationResult
+namespace CTF.Features.Initalisation;
+
+public record InitialisationResult : IInitialisationResult
 {
     public InitialisationResult()
     {
