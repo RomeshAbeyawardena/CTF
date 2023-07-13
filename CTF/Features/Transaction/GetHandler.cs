@@ -1,14 +1,15 @@
-﻿using RST.Mediatr.Extensions;
+﻿using Microsoft.AspNetCore.Http.Extensions;
+using RST.Mediatr.Extensions;
 
 namespace CTF.Features.Transaction;
 
-public class GetHandler : RepositoryHandlerBase<Get, IQueryable<Models.Transaction>, Models.Transaction>
+public class GetHandler : RepositoryHandlerBase<GetQuery, IQueryable<Models.Transaction>, Models.Transaction>
 {
     public GetHandler(IServiceProvider serviceProvider) : base(serviceProvider)
     {
     }
 
-    public override async Task<IQueryable<Models.Transaction>> Handle(Get request, CancellationToken cancellationToken)
+    public override async Task<IQueryable<Models.Transaction>> Handle(GetQuery request, CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
         var query = Repository!.QueryBuilder;
@@ -16,6 +17,11 @@ public class GetHandler : RepositoryHandlerBase<Get, IQueryable<Models.Transacti
         if (request.Id.HasValue)
         {
             query.And(s => s.Id == request.Id);
+        }
+
+        if (request.ClientId.HasValue)
+        {
+            query.And(s => s.ClientId == request.ClientId);
         }
 
         if (request.TransactionDefinitionId.HasValue)

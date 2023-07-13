@@ -7,6 +7,7 @@ namespace CTF.Features.ActivityLog;
 public class SaveCommand : IRequest<Models.ActivityLog>, IActivityLog, IDbCommand
 {
     public Guid? Id { get; set; }
+    public Guid? ClientId { get; set; }
     public bool CommitChanges { get; set; }
     public Guid SessionId { get; set; }
     public Guid? TransactionId { get; set; }

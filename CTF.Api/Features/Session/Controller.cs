@@ -19,23 +19,23 @@ public class Controller : RST.DependencyInjection.Extensions.EnableInjectionBase
         this.ConfigureInjection();
     }
 
-    [HttpGet, Route("{id?}")] public async Task<IPagedResult<Models.Session>> GetSessions(
-        [FromQuery]GetPaged query, CancellationToken cancellationToken,
+    [HttpGet, Route("{id?}")] public async Task<IPagedResult<Session>> GetSessions(
+        [FromQuery]GetPagedQuery query, CancellationToken cancellationToken,
         [FromRoute]Guid? id)
     {
         query.Id = id;
-        return Mapper!.Map<IPagedResult<Models.Session>>(
+        return Mapper!.Map<IPagedResult<Session>>(
             await Mediator!.Send(query, cancellationToken));
     }
 
-    [HttpPost] public async Task<Models.Session> SaveSession(
+    [HttpPost] public async Task<Session> SaveSession(
         [FromForm]SaveCommand command, CancellationToken cancellationToken)
     {
-        return Mapper!.Map<Models.Session>(await Mediator!.Send(command, cancellationToken));
+        return Mapper!.Map<Session>(await Mediator!.Send(command, cancellationToken));
     }
 
     [HttpPut, Route("{id?}")]
-    public Task<Models.Session> SaveSession(
+    public Task<Session> SaveSession(
         [FromForm] SaveCommand command, CancellationToken cancellationToken,
         [FromRoute]Guid? id)
     {

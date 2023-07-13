@@ -11,6 +11,7 @@ public record Resource : IResource, IIdentity
 {
     [Key]
     public Guid Id { get; set; }
+    public Guid? ClientId { get; set; }
     [Required, ColumnDescriptor(System.Data.SqlDbType.NVarChar, 200)]
     public string? Name { get; set; }
     [ColumnDescriptor(System.Data.SqlDbType.NVarChar, 2000)]
@@ -18,4 +19,5 @@ public record Resource : IResource, IIdentity
     public bool IsAvailable { get; set; }
     public DateTimeOffset? ImportedDate { get; set; }
     public virtual ICollection<SessionResourceAccess>? SessionResourceAccess { get; set; }
+    public virtual Client? Client { get; set; }
 }

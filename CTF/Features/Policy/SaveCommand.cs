@@ -6,6 +6,7 @@ namespace CTF.Features.Policy;
 
 public record SaveCommand : IRequest<Models.Policy>, IPolicy, IDbCommand
 {
+    public Guid? ClientId { get; set; }
     public string? Name { get; set; }
     public bool HasPublicAccess { get; set; }
     public bool CanRead { get; set; }
