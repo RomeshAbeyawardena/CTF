@@ -1,6 +1,8 @@
-﻿namespace CTF.Features.Resource;
+﻿using RST.Contracts;
 
-public interface IQuery
+namespace CTF.Features.Resource;
+
+public interface IQuery : IDateRangeQuery
 {
     Guid? ClientId { get; set; }
     string? NameSearch { get; set; }
