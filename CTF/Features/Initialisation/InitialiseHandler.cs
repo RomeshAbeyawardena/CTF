@@ -1,4 +1,6 @@
-﻿using CTF.Features.Initalisation;
+﻿using Azure.Core;
+using CTF.Features.Initalisation;
+using CTF.Models;
 using Dapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +18,40 @@ public class InitialiseHandler : EnableInjectionBase<InjectAttribute>, IRequestH
     [Inject] IMediator? Mediator { get; set; }
     [Inject] IDbConnection? Connection { get; set; }
 
+    internal static IEnumerable<string> GetNamespaces(IEnumerable<string>? excludedNamespaces)
+    {
+        var defaultExcludedNamespaces = new[] { "Models" };
+
+        if (excludedNamespaces != null && excludedNamespaces.Any())
+        {
+            defaultExcludedNamespaces = defaultExcludedNamespaces.Union(excludedNamespaces).ToArray();
+        }
+
+        return typeof(Instance).Assembly.GetTypes().Where(a => !string.IsNullOrWhiteSpace(a.Namespace)
+                && a.Namespace.StartsWith("CTF.Features") && !defaultExcludedNamespaces.Any(e => a.Namespace.EndsWith(e)))
+                .Select(a =>
+                {
+                    var n = a.Namespace!.Split('.');
+                    return n[^1];
+                }).OrderBy(a => a).Distinct();
+    }
+
+    internal static IEnumerable<IResource> GetExcludedResources(IEnumerable<IResource> resources, IEnumerable<string>? excludedResources)
+    {
+        var defaultExcludedResources = resources;
+        if (excludedResources != null)
+        {
+            defaultExcludedResources = defaultExcludedResources
+                .Union(excludedResources
+                    .Select(a => new Models.Resource
+                    {
+                        Name = a
+                    })).ToArray();
+        }
+
+        return defaultExcludedResources;
+    }
+
     public InitialiseHandler(IServiceProvider serviceProvider) : base(serviceProvider)
     {
         this.ConfigureInjection();
@@ -26,29 +62,17 @@ public class InitialiseHandler : EnableInjectionBase<InjectAttribute>, IRequestH
         var query = await Mediator!.Send(new Resource.GetQuery(), cancellationToken);
         var resources = await query.ToArrayAsync(cancellationToken);
 
-        var namespaces = typeof(Instance).Assembly.GetTypes().Where(a => !string.IsNullOrWhiteSpace(a.Namespace)
-                && a.Namespace.StartsWith("CTF.Features") && !a.Namespace.EndsWith("Models"))
-                .Select(a =>
-                {
-                    var n = a.Namespace!.Split('.');
-                    return n[^1];
-                }).OrderBy(a => a).Distinct().ToArray();
+        var namespaces = GetNamespaces(request.ExcludedNamespaces);
 
         var sqlBuilder = new StringBuilder("INSERT INTO [Resource] ([Id],[Name],[Description],[IsAvailable],[ImportedDate]) VALUES");
 
         bool isFirst = true;
         var importDate = ClockProvider!.UtcNow;
+
+        var excludedResources = GetExcludedResources(resources, request.ExcludedResources);
+
         foreach (var @namespace in namespaces)
         {
-            var excludedResources = resources;
-            if (request.ExcludedFeatures != null)
-            {
-                excludedResources = resources
-                    .Union(request.ExcludedFeatures
-                        .Select(a => new Models.Resource { 
-                                    Name = a })).ToArray();
-            }
-
             if (excludedResources.All(r => r.Name != @namespace))
             {
                 if (isFirst)
@@ -64,7 +88,10 @@ public class InitialiseHandler : EnableInjectionBase<InjectAttribute>, IRequestH
             }
         }
 
-        await Connection.ExecuteAsync(sqlBuilder.ToString());
+        if (request.CommitChanges)
+        {
+            await Connection.ExecuteAsync(sqlBuilder.ToString());
+        }
 
         query = await Mediator.Send(new Resource.GetQuery { 
             ImportedDate = importDate
