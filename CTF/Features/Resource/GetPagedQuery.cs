@@ -16,4 +16,5 @@ public record GetPagedQuery : IPagedRequest<Models.Resource>, IQuery
     public bool? NoTracking { get; set; }
     public DateTimeOffset? StartDate { get; set; }
     public DateTimeOffset? EndDate { get; set; }
+    public DateTimeOffset? ImportedDate { get; set; }
 }

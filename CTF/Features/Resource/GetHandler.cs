@@ -34,6 +34,11 @@ public class GetHandler : RepositoryHandlerBase<GetQuery, IQueryable<Models.Reso
             queryBuilder.And(DefineDateRangeQuery(request));
         }
 
+        if(request.ImportedDate.HasValue)
+        {
+            queryBuilder.And(r => r.ImportedDate == request.ImportedDate);
+        }
+
         if (request.Id.HasValue)
         {
             queryBuilder.And(r => r.Id == request.Id);

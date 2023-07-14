@@ -37,6 +37,7 @@ public class InitialiseHandler : EnableInjectionBase<InjectAttribute>, IRequestH
         var sqlBuilder = new StringBuilder("INSERT INTO [Resource] ([Id],[Name],[Description],[IsAvailable],[ImportedDate]) VALUES");
 
         bool isFirst = true;
+        var importDate = ClockProvider!.UtcNow;
         foreach (var @namespace in namespaces)
         {
             var excludedResources = resources;
@@ -59,17 +60,19 @@ public class InitialiseHandler : EnableInjectionBase<InjectAttribute>, IRequestH
                     sqlBuilder.Append(',');
                 }
 
-                sqlBuilder.AppendLine($"(NEWID(), '{@namespace}', '{@namespace} (Imported on {DateTimeOffset.UtcNow})', 1, GETUTCDATE())");
+                sqlBuilder.AppendLine($"(NEWID(), '{@namespace}', '{@namespace} (Imported on {importDate})', 1, GETUTCDATE())");
             }
         }
 
         await Connection.ExecuteAsync(sqlBuilder.ToString());
 
         query = await Mediator.Send(new Resource.GetQuery { 
-            StartDate = ClockProvider!.UtcNow.Date,
-            EndDate = ClockProvider!.UtcNow.Date.AddHours(23).AddMinutes(59).AddSeconds(59)
+            ImportedDate = importDate
         }, cancellationToken);
 
-        return new InitialisationResult();
+        return new InitialisationResult {
+            ExistingResources = resources,
+            NewResources = await query.ToArrayAsync(cancellationToken)
+        };
     }
 }

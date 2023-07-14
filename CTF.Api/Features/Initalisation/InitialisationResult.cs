@@ -6,10 +6,10 @@ public record InitialisationResult : IInitialisationResult
 {
     public InitialisationResult()
     {
-        ExistingFeatures = new List<string>();
-        NewFeatures = new List<string>();
+        ExistingResources = new List<IResource>();
+        NewResources = new List<IResource>();
     }
 
-    public IEnumerable<string> ExistingFeatures { get; set; }
-    public IEnumerable<string> NewFeatures { get; set; }
+    public IEnumerable<IResource> ExistingResources { get; set; }
+    public IEnumerable<IResource> NewResources { get; set; }
 }
