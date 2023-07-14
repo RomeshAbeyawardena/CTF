@@ -2,6 +2,6 @@
 
 public interface IInitialisationResult
 {
-    IEnumerable<string> ExistingFeatures { get; set; }
-    IEnumerable<string> NewFeatures { get; set; }
+    IEnumerable<IResource> ExistingResources { get; set; }
+    IEnumerable<IResource> NewResources { get; set; }
 }

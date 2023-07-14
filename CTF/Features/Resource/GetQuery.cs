@@ -12,4 +12,5 @@ public record GetQuery : IRequest<IQueryable<Models.Resource>>, IQuery
     public DateTimeOffset? EndDate { get; set; }
     public bool FilterByDate { get; set; }
     public bool? NoTracking { get; set; }
+    public DateTimeOffset? ImportedDate { get; set; }
 }
