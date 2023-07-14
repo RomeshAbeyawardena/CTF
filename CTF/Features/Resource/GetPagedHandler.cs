@@ -17,6 +17,11 @@ public class GetPagedHandler : PagedRepositoryHandlerBase<GetPagedQuery, Models.
     {
     }
 
+    protected override Expression<Func<Models.Resource, bool>> DefineDateRangeQuery(IDateRangeQuery query)
+    {
+        return GetHandler.SetDateRangeQuery(query);
+    }
+
     public override async Task<IPagedResult<Models.Resource>> Handle(GetPagedQuery request, CancellationToken cancellationToken)
     {
         var query = await Mediator!.Send(Mapper!.Map<GetQuery>(request), cancellationToken);

@@ -5,6 +5,7 @@
 /// </summary>
 public interface ITransaction
 {
+    Guid? ClientId { get; set; }
     /// <summary>
     /// Gets or sets the transaction type ID
     /// </summary>

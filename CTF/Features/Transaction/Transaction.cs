@@ -11,6 +11,7 @@ public record Transaction : ITransaction, IIdentity
 {
     [Key]
     public Guid Id { get; set; }
+    public Guid? ClientId { get; set; }
     public Guid TransactionTypeId { get; set; }
     public Guid TransactionDefinitionId { get; set; }
     public Guid? ParentTransactionId { get; set; }
@@ -28,4 +29,5 @@ public record Transaction : ITransaction, IIdentity
     public virtual TransactionType? TransactionType { get; set; }
     public virtual Session? GeneratedBySession { get; set; }
     public virtual Session? ProcessedBySession { get; set; }
+    public virtual Client? Client { get; set; }
 }

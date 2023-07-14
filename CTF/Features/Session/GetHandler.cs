@@ -1,15 +1,16 @@
-﻿using RST.Mediatr.Extensions;
+﻿using Microsoft.AspNetCore.Http.Extensions;
+using RST.Mediatr.Extensions;
 using System.Data.Entity;
 
 namespace CTF.Features.Session;
 
-public class GetHandler : RepositoryHandlerBase<Get, IQueryable<Models.Session>, Models.Session>
+public class GetHandler : RepositoryHandlerBase<GetQuery, IQueryable<Models.Session>, Models.Session>
 {
     public GetHandler(IServiceProvider serviceProvider) : base(serviceProvider)
     {
     }
 
-    public override async Task<IQueryable<Models.Session>> Handle(Get request, CancellationToken cancellationToken)
+    public override async Task<IQueryable<Models.Session>> Handle(GetQuery request, CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
         var query = Repository!.QueryBuilder;
@@ -17,6 +18,11 @@ public class GetHandler : RepositoryHandlerBase<Get, IQueryable<Models.Session>,
         if (request.Id.HasValue)
         {
             query.And(s => s.Id == request.Id);
+        }
+
+        if (request.ClientId.HasValue)
+        {
+            query.And(s => s.ClientId == request.ClientId);
         }
 
         if (!string.IsNullOrWhiteSpace(request.Key))

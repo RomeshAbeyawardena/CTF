@@ -3,13 +3,13 @@ using RST.Mediatr.Extensions;
 
 namespace CTF.Features.ActivityType;
 
-public class GetHandler : RepositoryHandlerBase<Get, IQueryable<Models.ActivityType>, Models.ActivityType>
+public class GetHandler : RepositoryHandlerBase<GetQuery, IQueryable<Models.ActivityType>, Models.ActivityType>
 {
     public GetHandler(IServiceProvider serviceProvider) : base(serviceProvider)
     {
     }
 
-    public override async Task<IQueryable<Models.ActivityType>> Handle(Get request, CancellationToken cancellationToken)
+    public override async Task<IQueryable<Models.ActivityType>> Handle(GetQuery request, CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
         var query = Repository!.QueryBuilder;

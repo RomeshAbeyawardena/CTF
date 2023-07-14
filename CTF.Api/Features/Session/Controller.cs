@@ -20,7 +20,7 @@ public class Controller : RST.DependencyInjection.Extensions.EnableInjectionBase
     }
 
     [HttpGet, Route("{id?}")] public async Task<IPagedResult<Models.Session>> GetSessions(
-        [FromQuery]GetPaged query, CancellationToken cancellationToken,
+        [FromQuery]GetPagedQuery query, CancellationToken cancellationToken,
         [FromRoute]Guid? id)
     {
         query.Id = id;

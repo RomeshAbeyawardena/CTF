@@ -5,6 +5,7 @@
 /// </summary>
 public interface ITransactionDefinition
 {
+    Guid? ClientId { get; set; }
     /// <summary>
     /// Gets or sets the key used for the transaction definition
     /// </summary>
