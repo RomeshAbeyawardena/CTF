@@ -22,7 +22,7 @@ public class Controller : EnableInjectionBase<InjectAttribute>
 
     [HttpGet, Route("{id?}")]
     public async Task<IPagedResult<Models.TransactionType>> GetTransactionTypes(
-        [FromQuery] GetPaged query, CancellationToken cancellationToken,
+        [FromQuery] GetPagedQuery query, CancellationToken cancellationToken,
         [FromRoute] Guid? id)
     {
         query.Id = id;

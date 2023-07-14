@@ -5,6 +5,7 @@ namespace CTF.Api.Features.Models;
 public record ActivityLog : IActivityLog
 {
     public Guid? Id { get; set; }
+    public Guid? ClientId { get; set; }
     public Guid SessionId { get; set; }
     public Guid? TransactionId { get; set; }
     public Guid? TransactionDefinitionId { get; set; }

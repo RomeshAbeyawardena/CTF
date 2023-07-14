@@ -9,6 +9,10 @@ public interface IQuery : IDateRangeQuery
     /// </summary>
     Guid? Id { get; set; }
     /// <summary>
+    /// 
+    /// </summary>
+    Guid? ClientId { get; set; }
+    /// <summary>
     /// Gets or sets the owner of the transaction
     /// </summary>
     Guid? OwnerTransactionId { get; set; }

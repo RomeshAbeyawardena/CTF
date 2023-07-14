@@ -7,7 +7,7 @@ namespace CTF.Features.Session;
 public class SaveCommand : IRequest<Models.Session>, ISession, IDbCommand
 {
     public Guid? Id { get; set; }
-    
+    public Guid? ClientId { get; set; }
     public bool CommitChanges { get; set; }
     public Guid? OwnerTransactionId { get; set; }
     public string? Key { get; set; }

@@ -8,6 +8,7 @@ public interface IQuery : IDateRangeQuery
     /// Gets or sets the Activity log ID
     /// </summary>
     Guid? Id { get; set; }
+    Guid? ClientId { get; set; }
     Guid? SessionId { get; set; }
     Guid? TransactionId { get; set; }
     Guid? TransactionDefinitionId { get; set; }

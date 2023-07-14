@@ -34,6 +34,9 @@ namespace CTF.Api.Migrations
                     b.Property<Guid?>("AuditedActivityTypeId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("ClientId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTimeOffset>("Created")
                         .HasColumnType("datetimeoffset");
 
@@ -55,6 +58,8 @@ namespace CTF.Api.Migrations
 
                     b.HasIndex("AuditedActivityTypeId");
 
+                    b.HasIndex("ClientId");
+
                     b.HasIndex("SessionId");
 
                     b.HasIndex("TransactionDefinitionId");
@@ -63,7 +68,7 @@ namespace CTF.Api.Migrations
 
                     b.HasIndex("TransactionTypeId");
 
-                    b.ToTable("ActivityLog", (string)null);
+                    b.ToTable("ActivityLog");
                 });
 
             modelBuilder.Entity("CTF.Features.Models.ActivityType", b =>
@@ -87,7 +92,40 @@ namespace CTF.Api.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("ActivityType", (string)null);
+                    b.ToTable("ActivityType");
+                });
+
+            modelBuilder.Entity("CTF.Features.Models.Client", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("DisplayName")
+                        .HasColumnType("NVARCHAR(2000)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR(200)");
+
+                    b.Property<Guid?>("ParentClientId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Reference")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR(80)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.HasIndex("ParentClientId");
+
+                    b.HasIndex("Reference")
+                        .IsUnique();
+
+                    b.ToTable("Client");
                 });
 
             modelBuilder.Entity("CTF.Features.Models.Policy", b =>
@@ -105,6 +143,9 @@ namespace CTF.Api.Migrations
                     b.Property<bool>("CanWrite")
                         .HasColumnType("bit");
 
+                    b.Property<Guid?>("ClientId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("HasPublicAccess")
                         .HasColumnType("bit");
 
@@ -117,13 +158,16 @@ namespace CTF.Api.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Policy", (string)null);
+                    b.ToTable("Policy");
                 });
 
             modelBuilder.Entity("CTF.Features.Models.Resource", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ClientId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
@@ -141,10 +185,12 @@ namespace CTF.Api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ClientId");
+
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Resource", (string)null);
+                    b.ToTable("Resource");
                 });
 
             modelBuilder.Entity("CTF.Features.Models.ResourcePolicy", b =>
@@ -178,13 +224,16 @@ namespace CTF.Api.Migrations
 
                     b.HasIndex("ResourceId");
 
-                    b.ToTable("ResourcePolicy", (string)null);
+                    b.ToTable("ResourcePolicy");
                 });
 
             modelBuilder.Entity("CTF.Features.Models.Session", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ClientId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Key")
@@ -210,9 +259,11 @@ namespace CTF.Api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ClientId");
+
                     b.HasIndex("OwnerTransactionId");
 
-                    b.ToTable("Session", (string)null);
+                    b.ToTable("Session");
                 });
 
             modelBuilder.Entity("CTF.Features.Models.SessionAuthenticationToken", b =>
@@ -238,7 +289,7 @@ namespace CTF.Api.Migrations
 
                     b.HasIndex("SessionId");
 
-                    b.ToTable("SessionAuthenticationToken", (string)null);
+                    b.ToTable("SessionAuthenticationToken");
                 });
 
             modelBuilder.Entity("CTF.Features.Models.SessionResourceAccess", b =>
@@ -268,13 +319,16 @@ namespace CTF.Api.Migrations
 
                     b.HasIndex("SessionId");
 
-                    b.ToTable("SessionResourceAccess", (string)null);
+                    b.ToTable("SessionResourceAccess");
                 });
 
             modelBuilder.Entity("CTF.Features.Models.Transaction", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ClientId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("GeneratedBySessionId")
@@ -308,6 +362,8 @@ namespace CTF.Api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ClientId");
+
                     b.HasIndex("GeneratedBySessionId");
 
                     b.HasIndex("ParentTransactionId");
@@ -318,13 +374,16 @@ namespace CTF.Api.Migrations
 
                     b.HasIndex("TransactionTypeId");
 
-                    b.ToTable("Transaction", (string)null);
+                    b.ToTable("Transaction");
                 });
 
             modelBuilder.Entity("CTF.Features.Models.TransactionDefinition", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ClientId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Key")
@@ -351,7 +410,9 @@ namespace CTF.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TransactionDefinition", (string)null);
+                    b.HasIndex("ClientId");
+
+                    b.ToTable("TransactionDefinition");
                 });
 
             modelBuilder.Entity("CTF.Features.Models.TransactionType", b =>
@@ -375,7 +436,7 @@ namespace CTF.Api.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("TransactionType", (string)null);
+                    b.ToTable("TransactionType");
                 });
 
             modelBuilder.Entity("CTF.Features.Models.ActivityLog", b =>
@@ -389,6 +450,10 @@ namespace CTF.Api.Migrations
                     b.HasOne("CTF.Features.Models.ActivityType", "AuditedActivityType")
                         .WithMany()
                         .HasForeignKey("AuditedActivityTypeId");
+
+                    b.HasOne("CTF.Features.Models.Client", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId");
 
                     b.HasOne("CTF.Features.Models.Session", "Session")
                         .WithMany()
@@ -412,6 +477,8 @@ namespace CTF.Api.Migrations
 
                     b.Navigation("AuditedActivityType");
 
+                    b.Navigation("Client");
+
                     b.Navigation("Session");
 
                     b.Navigation("Transaction");
@@ -419,6 +486,24 @@ namespace CTF.Api.Migrations
                     b.Navigation("TransactionDefinition");
 
                     b.Navigation("TransactionType");
+                });
+
+            modelBuilder.Entity("CTF.Features.Models.Client", b =>
+                {
+                    b.HasOne("CTF.Features.Models.Client", "ParentClient")
+                        .WithMany()
+                        .HasForeignKey("ParentClientId");
+
+                    b.Navigation("ParentClient");
+                });
+
+            modelBuilder.Entity("CTF.Features.Models.Resource", b =>
+                {
+                    b.HasOne("CTF.Features.Models.Client", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId");
+
+                    b.Navigation("Client");
                 });
 
             modelBuilder.Entity("CTF.Features.Models.ResourcePolicy", b =>
@@ -442,9 +527,15 @@ namespace CTF.Api.Migrations
 
             modelBuilder.Entity("CTF.Features.Models.Session", b =>
                 {
+                    b.HasOne("CTF.Features.Models.Client", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId");
+
                     b.HasOne("CTF.Features.Models.Transaction", "OwnerTransaction")
                         .WithMany()
                         .HasForeignKey("OwnerTransactionId");
+
+                    b.Navigation("Client");
 
                     b.Navigation("OwnerTransaction");
                 });
@@ -481,6 +572,10 @@ namespace CTF.Api.Migrations
 
             modelBuilder.Entity("CTF.Features.Models.Transaction", b =>
                 {
+                    b.HasOne("CTF.Features.Models.Client", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId");
+
                     b.HasOne("CTF.Features.Models.Session", "GeneratedBySession")
                         .WithMany()
                         .HasForeignKey("GeneratedBySessionId")
@@ -507,6 +602,8 @@ namespace CTF.Api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Client");
+
                     b.Navigation("GeneratedBySession");
 
                     b.Navigation("ParentTransaction");
@@ -516,6 +613,15 @@ namespace CTF.Api.Migrations
                     b.Navigation("TransactionDefinition");
 
                     b.Navigation("TransactionType");
+                });
+
+            modelBuilder.Entity("CTF.Features.Models.TransactionDefinition", b =>
+                {
+                    b.HasOne("CTF.Features.Models.Client", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId");
+
+                    b.Navigation("Client");
                 });
 
             modelBuilder.Entity("CTF.Features.Models.Resource", b =>

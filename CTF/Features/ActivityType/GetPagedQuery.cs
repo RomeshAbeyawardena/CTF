@@ -1,9 +1,9 @@
 ﻿using RST.Contracts;
 using RST.Enumerations;
 
-namespace CTF.Features.TransactionDefinition;
+namespace CTF.Features.ActivityType;
 
-public record GetPaged : IPagedRequest<Models.TransactionDefinition>, IQuery
+public record GetPagedQuery : IPagedRequest<Models.ActivityType>, IQuery
 {
     public bool? NoTracking { get; set; }
     public Guid? Id { get; set; }
@@ -12,8 +12,6 @@ public record GetPaged : IPagedRequest<Models.TransactionDefinition>, IQuery
     public int? TotalItemsPerPage { get; set; }
     public IEnumerable<string>? OrderByFields { get; set; }
     public SortOrder? SortOrder { get; set; }
-    public Guid? SessionId { get; set; }
-    public string? Key { get; set; }
-    public string? Token { get; set; }
-    public string? Subject { get; set; }
+    public string? NameSearch { get; set; }
+    public Enumerations.ActivityType? ActivityType { get; set; }
 }

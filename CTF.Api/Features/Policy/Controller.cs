@@ -19,7 +19,7 @@ public class Controller : RST.DependencyInjection.Extensions.EnableInjectionBase
         this.ConfigureInjection();
     }
 
-    [HttpGet, Route("{id?}")] public async Task<IPagedResult<Models.Policy>> GetPolicys(
+    [HttpGet, Route("{id?}")] public async Task<IPagedResult<Models.Policy>> GetPolicies(
         [FromQuery]GetPagedQuery query, CancellationToken cancellationToken,
         [FromRoute]Guid? id)
     {

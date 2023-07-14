@@ -1,7 +1,11 @@
-﻿namespace CTF.Features.Resource;
+﻿using RST.Contracts;
 
-public interface IQuery
+namespace CTF.Features.Resource;
+
+public interface IQuery : IDateRangeQuery
 {
+    DateTimeOffset? ImportedDate { get; set; }
+    Guid? ClientId { get; set; }
     string? NameSearch { get; set; }
     bool? ShowAll { get; set; }
 }

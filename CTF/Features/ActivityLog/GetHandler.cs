@@ -2,13 +2,13 @@
 
 namespace CTF.Features.ActivityLog;
 
-public class GetHandler : RepositoryHandlerBase<Get, IQueryable<Models.ActivityLog>, Models.ActivityLog>
+public class GetHandler : RepositoryHandlerBase<GetQuery, IQueryable<Models.ActivityLog>, Models.ActivityLog>
 {
     public GetHandler(IServiceProvider serviceProvider) : base(serviceProvider)
     {
     }
 
-    public override async Task<IQueryable<Models.ActivityLog>> Handle(Get request, CancellationToken cancellationToken)
+    public override async Task<IQueryable<Models.ActivityLog>> Handle(GetQuery request, CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
         var query = Repository!.QueryBuilder;
@@ -16,6 +16,11 @@ public class GetHandler : RepositoryHandlerBase<Get, IQueryable<Models.ActivityL
         if (request.Id.HasValue)
         {
             query.And(s => s.Id == request.Id);
+        }
+
+        if (request.ClientId.HasValue)
+        {
+            query.And(s => s.ClientId == request.ClientId);
         }
 
         if (request.SessionId.HasValue)

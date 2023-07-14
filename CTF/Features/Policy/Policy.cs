@@ -10,6 +10,7 @@ namespace CTF.Features.Models
     {
         [Key]
         public Guid? Id { get; set; }
+        public Guid? ClientId { get; set; }
         [Required, ColumnDescriptor(System.Data.SqlDbType.NVarChar, 200)]
         public string? Name { get; set; }
         public bool HasPublicAccess { get; set; }

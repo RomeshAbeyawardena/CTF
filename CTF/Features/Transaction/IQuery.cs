@@ -8,6 +8,7 @@ public interface IQuery : IDateRangeQuery
     /// Gets or sets the Session ID
     /// </summary>
     Guid? Id { get; set; }
+    Guid? ClientId { get; set; }
     public Guid? TransactionTypeId { get; set; }
     public Guid? TransactionDefinitionId { get; set; }
     public Guid? ParentTransactionId { get; set; }

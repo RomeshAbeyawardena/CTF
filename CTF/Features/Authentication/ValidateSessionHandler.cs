@@ -23,7 +23,7 @@ public class ValidateSessionHandler : IRequestHandler<ValidateSessionQuery, Vali
     {
         var utcNow = clockProvider.UtcNow;
         //get session
-        var sessions = await mediator.Send(new Session.Get
+        var sessions = await mediator.Send(new Session.GetQuery
         {
             Key = request.SessionKey,
             Token = request.SessionToken,

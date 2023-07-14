@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 
-namespace CTF.Features.Authentication
+namespace CTF.Features.Authentication;
+
+public record RenewSessionCommand : IRequest<RenewSessionResponse>
 {
-    internal class RenewSessionCommand
-    {
-    }
+    public DateTimeOffset? RenewalDate { get; set; }
+    public string? SessionToken { get; set; }
+    public string? SessionKey { get; set; }
+    public string? Claims { get; set; }
 }
